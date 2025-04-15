@@ -1,8 +1,6 @@
-"use server"
-
-import { z } from "zod"
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
+import { z } from "zod"
 
 // Email form schema
 const emailSchema = z.object({
@@ -12,8 +10,10 @@ const emailSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 })
 
-export async function sendEmail(formData: FormData) {
+export async function POST(request: NextRequest) {
   try {
+    const formData = await request.formData()
+
     // Extract data from form
     const name = formData.get("name") as string
     const email = formData.get("email") as string
@@ -24,10 +24,7 @@ export async function sendEmail(formData: FormData) {
     const result = emailSchema.safeParse({ name, email, subject, message })
 
     if (!result.success) {
-      return {
-        success: false,
-        error: "Invalid form data. Please check your inputs.",
-      }
+      return NextResponse.json({ error: "Invalid form data. Please check your inputs." }, { status: 400 })
     }
 
     // Create a nodemailer transporter
@@ -70,41 +67,18 @@ export async function sendEmail(formData: FormData) {
     // In development, just log the email
     if (process.env.NODE_ENV === "development") {
       console.log("Email would be sent:", mailOptions)
-      return {
-        success: true,
-        message: "Email sent successfully! (Development mode - email logged to console)",
-      }
+      return NextResponse.json(
+        { message: "Email sent successfully! (Development mode - email logged to console)" },
+        { status: 200 },
+      )
     }
 
     // Send email
     await transporter.sendMail(mailOptions)
 
-    return {
-      success: true,
-      message: "Email sent successfully!",
-    }
+    return NextResponse.json({ message: "Email sent successfully!" }, { status: 200 })
   } catch (error) {
     console.error("Error sending email:", error)
-    return {
-      success: false,
-      error: "Failed to send email. Please try again later.",
-    }
-  }
-}
-
-// API route handler for contact form
-export async function POST(request: Request) {
-  try {
-    const formData = await request.formData()
-    const result = await sendEmail(formData)
-
-    if (result.success) {
-      return NextResponse.json({ message: result.message }, { status: 200 })
-    } else {
-      return NextResponse.json({ error: result.error }, { status: 400 })
-    }
-  } catch (error) {
-    console.error("Error in contact API route:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: "Failed to send email. Please try again later." }, { status: 500 })
   }
 }

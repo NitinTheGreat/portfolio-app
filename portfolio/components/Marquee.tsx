@@ -44,7 +44,7 @@ const technologies = [
 
 export default function MarqueeSection() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: false, amount: 0.2 })
+  const isInView = useInView(containerRef, { once: false, amount: 0.2, margin: "-100px 0px" })
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],

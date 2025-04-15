@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import type { Project } from "@/lib/types"
-import { FaGithub, FaArrowLeft, FaArrowRight } from "react-icons/fa"
-import { FiExternalLink, FiX } from "react-icons/fi"
+import { X, Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 
 interface ProjectModalProps {
   project: Project
@@ -26,10 +25,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   }, [])
 
   useEffect(() => {
-    // Auto-advance slideshow
+    // Auto-advance slideshow every 3 seconds
     const interval = setInterval(() => {
       nextImage()
-    }, 5000)
+    }, 3000)
 
     return () => clearInterval(interval)
   }, [currentImageIndex, project.images.length])
@@ -77,12 +76,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <motion.button
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors cursor-pointer"
             onClick={onClose}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <FiX className="w-5 h-5" />
+            <X className="w-5 h-5" />
           </motion.button>
 
           <div className="relative h-64 md:h-80 overflow-hidden">
@@ -106,23 +105,23 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             {/* Navigation arrows */}
             <button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation()
                 prevImage()
               }}
             >
-              <FaArrowLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
 
             <button
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation()
                 nextImage()
               }}
             >
-              <FaArrowRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5" />
             </button>
 
             {/* Image indicators */}
@@ -130,7 +129,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               {project.images.map((_, index) => (
                 <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all ${
+                  className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
                     index === currentImageIndex ? "bg-white w-4" : "bg-white/50"
                   }`}
                   onClick={(e) => {
@@ -180,11 +179,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors flex items-center gap-2 border border-slate-700"
+                className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors flex items-center gap-2 border border-slate-700 cursor-pointer"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <FaGithub className="w-5 h-5" />
+                <Github className="w-5 h-5" />
                 GitHub
               </motion.a>
 
@@ -193,11 +192,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-colors flex items-center gap-2 shadow-lg shadow-indigo-500/20"
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-colors flex items-center gap-2 shadow-lg shadow-indigo-500/20 cursor-pointer"
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <FiExternalLink className="w-5 h-5" />
+                  <ExternalLink className="w-5 h-5" />
                   Live Demo
                 </motion.a>
               )}

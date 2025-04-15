@@ -1,38 +1,67 @@
 "use client"
 
+import type React from "react"
+
 import { forwardRef, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { sendEmail } from "@/actions/send-email"
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
 import { MdEmail, MdLocationOn } from "react-icons/md"
-import { BiLoaderAlt } from "react-icons/bi"
+import { Loader2 } from 'lucide-react'
 
 const ContactSection = forwardRef<HTMLElement>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: false, amount: 0.2 })
+  // Increase the amount and margin to ensure the animation stays visible longer
+  const isInView = useInView(containerRef, { 
+    once: false, 
+    amount: 0.1,  // Reduced from 0.2 to 0.1 to trigger earlier
+    margin: "200px 0px" // Increased margin to keep it visible longer
+  })
+  
   const [formStatus, setFormStatus] = useState<{
     type: "success" | "error" | null
     message: string
   }>({ type: null, message: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     try {
       setIsSubmitting(true)
-      const result = await sendEmail(formData)
 
-      if (result.success) {
+      const formData = new FormData(e.currentTarget)
+
+      // For development, simulate a successful submission
+      if (process.env.NODE_ENV === "development") {
+        setTimeout(() => {
+          setFormStatus({
+            type: "success",
+            message: "Message sent successfully! (Development mode)",
+          })
+          e.currentTarget.reset()
+          setIsSubmitting(false)
+        }, 1000)
+        return
+      }
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
         setFormStatus({
           type: "success",
-          message: "Message sent successfully! I'll get back to you soon.",
+          message: data.message || "Message sent successfully! I'll get back to you soon.",
         })
         // Reset form
-        const form = document.getElementById("contact-form") as HTMLFormElement
-        form.reset()
+        e.currentTarget.reset()
       } else {
         setFormStatus({
           type: "error",
-          message: result.error || "Something went wrong. Please try again.",
+          message: data.error || "Something went wrong. Please try again.",
         })
       }
     } catch (error) {
@@ -105,7 +134,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   <h4 className="text-lg font-medium text-white">Email</h4>
                   <a
                     href="mailto:nitinkrpandey@gmail.com"
-                    className="text-slate-300 hover:text-indigo-400 transition-colors"
+                    className="text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer"
                   >
                     nitinkrpandey@gmail.com
                   </a>
@@ -132,7 +161,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                     href="https://linkedin.com/in/nitinkrpandey"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-300 hover:text-indigo-400 transition-colors"
+                    className="text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer"
                   >
                     linkedin.com/in/nitinkrpandey
                   </a>
@@ -147,7 +176,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   href="https://github.com/NItinTheGreat"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors"
+                  className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -158,7 +187,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   href="https://linkedin.com/in/nitinkrpandey"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors"
+                  className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -169,7 +198,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   href="https://twitter.com/NItinTheGreat"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors"
+                  className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -195,7 +224,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
               Send Me a Message
             </h3>
 
-            <form id="contact-form" action={handleSubmit} className="space-y-6">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1">
                   Name
@@ -205,7 +234,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white cursor-text"
                   placeholder="Your name"
                 />
               </div>
@@ -219,7 +248,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white cursor-text"
                   placeholder="Your email"
                 />
               </div>
@@ -233,7 +262,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   id="subject"
                   name="subject"
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white cursor-text"
                   placeholder="Subject"
                 />
               </div>
@@ -247,7 +276,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                   name="message"
                   rows={5}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors text-white resize-none cursor-text"
                   placeholder="Your message"
                 />
               </div>
@@ -267,13 +296,13 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+                className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {isSubmitting ? (
                   <>
-                    <BiLoaderAlt className="w-5 h-5 mr-2 animate-spin" />
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                     Sending...
                   </>
                 ) : (

@@ -9,9 +9,10 @@ import StickyProjectsSection from "@/components/StickyProjectsSection"
 import AboutSection from "@/components/AboutSection"
 import ContactSection from "@/components/ContactSection"
 import Footer from "@/components/Footer"
-import MarqueeSection from "../components/Marquee"
+import MarqueeSection from "@/components/Marquee"
 // import TestimonialSection from "@/components/TestimonialSection"
 import StatsSection from "@/components/StatsSection"
+import ThreeDExperienceSection from "@/components/3dExperienceSection"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -43,6 +44,7 @@ export default function Home() {
       <StickyProjectsSection />
       <MarqueeSection />
       <ProjectsSection ref={projectsRef} />
+      <ThreeDExperienceSection />
       {/* <TestimonialSection /> */}
       <AboutSection ref={aboutRef} />
       <ContactSection ref={contactRef} />

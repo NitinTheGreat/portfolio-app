@@ -26,6 +26,9 @@ const skills = [
 const AboutSection = forwardRef<HTMLElement>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false, amount: 0.2 })
+  const skillsRef = useRef<HTMLDivElement>(null)
+const skillsInView = useInView(skillsRef, { once: false, amount: 0.2 })
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -159,36 +162,38 @@ const AboutSection = forwardRef<HTMLElement>((props, ref) => {
         </div>
 
         <motion.h3
-          className="text-3xl font-bold mt-24 mb-10 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
-            Skills & Technologies
-          </span>
-        </motion.h3>
+  className="text-3xl font-bold mt-24 mb-10 text-center"
+  initial={{ opacity: 0, y: -90 }}
+  animate={skillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -90 }}
+  transition={{ delay: 0.2, duration: 0.8 }}
+>
+  <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+    Skills & Technologies
+  </span>
+</motion.h3>
 
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              variants={itemVariants}
-              whileHover={{ y: -5 }}
-              className="flex flex-col items-center p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-indigo-500/30 transition-all"
-            >
-              <div className={`text-3xl mb-2 ${skill.color}`}>
-                <skill.icon className="w-10 h-10" />
-              </div>
-              <span className="text-sm font-medium text-slate-300">{skill.name}</span>
-            </motion.div>
-          ))}
-        </motion.div>
+<motion.div
+  ref={skillsRef}
+  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+  variants={containerVariants}
+  initial="hidden"
+  animate={skillsInView ? "visible" : "hidden"}
+>
+  {skills.map((skill) => (
+    <motion.div
+      key={skill.name}
+      variants={itemVariants}
+      whileHover={{ y: -5 }}
+      className="flex flex-col items-center p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-indigo-500/30 transition-all"
+    >
+      <div className={`text-3xl mb-2 ${skill.color}`}>
+        <skill.icon className="w-10 h-10" />
+      </div>
+      <span className="text-sm font-medium text-slate-300">{skill.name}</span>
+    </motion.div>
+  ))}
+</motion.div>
+
       </div>
     </section>
   )

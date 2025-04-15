@@ -127,7 +127,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
               </motion.button>
             ))}
             <motion.a
-              href="/resume.pdf"
+              href="/resume"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium"

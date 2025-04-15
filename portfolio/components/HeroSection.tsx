@@ -2,8 +2,8 @@
 
 import { forwardRef, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import HeroCanvas from "@/components/HeroCanvas"
 import { FaArrowDown } from "react-icons/fa"
+import RiveComponent from "./RiveComponent"
 
 const HeroSection = forwardRef<HTMLElement>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -22,8 +22,12 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
       className="h-screen relative flex flex-col items-center justify-center overflow-hidden"
       style={{ opacity }}
     >
-      <HeroCanvas />
+      {/* Animated background with Rive */}
+      <div className="absolute inset-0 z-0">
+        <RiveComponent />
+      </div>
 
+      {/* Content overlay */}
       <div className="z-10 text-center px-4 relative">
         <motion.h1
           className="text-5xl md:text-7xl font-bold mb-6"
@@ -80,12 +84,12 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           </motion.a>
 
           <motion.a
-            href="#contact"
+            href="/resume"
             className="px-8 py-3 rounded-full bg-slate-800 text-white font-medium border border-slate-700 hover:bg-slate-700 transition-all"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Get In Touch
+            View Resume
           </motion.a>
         </motion.div>
       </div>

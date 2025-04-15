@@ -2,9 +2,15 @@
 
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
+import { useRive } from "@rive-app/react-canvas"
 
 export default function LoadingAnimation() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const { RiveComponent } = useRive({
+    src: "/hero/loading.riv",
+  
+    autoplay: true,
+  })
 
   // Create a particle effect in the background
   useEffect(() => {
@@ -59,8 +65,8 @@ export default function LoadingAnimation() {
         }}
         className="w-64 h-64 relative z-10"
       >
-        <div className="w-24 h-24 border-t-4 border-indigo-500 rounded-full animate-spin mx-auto"></div>
-        <div className="mt-8 text-2xl font-bold text-center text-white">Loading...</div>
+        hello world
+        <RiveComponent />
       </motion.div>
 
       <style jsx>{`

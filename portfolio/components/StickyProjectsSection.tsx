@@ -1,29 +1,39 @@
 "use client"
 
-import { useRef, useState } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { useRef, useState, useEffect } from "react"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { projects } from "@/lib/data"
 import ProjectModal from "./ProjectModal"
 import { FaGithub } from "react-icons/fa"
 import { FiExternalLink } from "react-icons/fi"
+import { useInView } from "framer-motion"
 
 export default function StickyProjectsSection() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
+  const [sectionHeight, setSectionHeight] = useState(0)
+  const isInView = useInView(sectionRef, { once: false, amount: 0.1 })
+
+  // Calculate the height based on the number of projects to ensure enough scroll space
+  useEffect(() => {
+    if (containerRef.current) {
+      // Set the height to be enough for the horizontal scroll effect
+      // This creates enough scrolling space for the animation to complete
+      setSectionHeight(window.innerHeight * 2)
+    }
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   })
 
-  // Use spring for smoother animation
-  const springX = useSpring(
-    useTransform(
-      scrollYProgress,
-      [0, 0.3, 0.7, 1],
-      [0, -projects.length * 100, -projects.length * 300, -projects.length * 400],
-    ),
-    { stiffness: 100, damping: 30 },
+  // Transform the vertical scroll into horizontal movement
+  const x = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1], // Input range (scroll progress)
+    ["0%", "-50%", "-100%"], // Output range (horizontal translation)
   )
 
   // Generate different gradient colors for each project
@@ -49,18 +59,49 @@ export default function StickyProjectsSection() {
   }
 
   return (
-    <section ref={containerRef} id="projects" className="h-[250vh] relative">
+    <section ref={containerRef} id="sticky-projects" style={{ height: `${sectionHeight}px` }} className="relative">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <motion.div className="flex gap-8 pl-[100vw]" style={{ x: springX }}>
+        <motion.div
+          ref={sectionRef}
+          className="flex flex-nowrap gap-8 px-4 md:px-12 w-fit"
+          style={{ x }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="min-w-[300px] md:min-w-[500px] flex flex-col justify-center pr-8">
+            <motion.h2
+              className="text-4xl md:text-6xl font-bold mb-6 text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+                Explore My Projects
+              </span>
+            </motion.h2>
+            <motion.p
+              className="text-lg text-slate-300 max-w-md"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Scroll horizontally to discover my work. Each project represents a unique challenge and solution.
+            </motion.p>
+          </div>
+
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="w-[400px] h-[600px] flex-shrink-0"
+              className="min-w-[300px] sm:min-w-[350px] md:min-w-[400px] h-[500px] md:h-[600px] flex-shrink-0"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.5 }}
               whileHover={{
                 y: -20,
                 transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
-              onClick={() => setSelectedProject(index)}
+              onClick={() => setSelectedProject(project.id)}
             >
               <div
                 className={`w-full h-full rounded-2xl p-6 flex flex-col justify-between bg-gradient-to-br ${getGradient(
@@ -74,11 +115,16 @@ export default function StickyProjectsSection() {
                 </div>
 
                 <div className="flex flex-wrap gap-2 mt-4">
-                  {project.technologies.map((tech) => (
+                  {project.technologies.slice(0, 4).map((tech) => (
                     <span key={tech} className="px-3 py-1 text-sm rounded-full bg-black/30 text-slate-300">
                       {tech}
                     </span>
                   ))}
+                  {project.technologies.length > 4 && (
+                    <span className="px-3 py-1 text-sm rounded-full bg-black/30 text-slate-300">
+                      +{project.technologies.length - 4}
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex gap-4 mt-6">
@@ -118,9 +164,14 @@ export default function StickyProjectsSection() {
         </motion.div>
       </div>
 
-      {selectedProject !== null && (
-        <ProjectModal project={projects[selectedProject]} onClose={() => setSelectedProject(null)} />
-      )}
+      <AnimatePresence>
+        {selectedProject !== null && (
+          <ProjectModal
+            project={projects.find((p) => p.id === selectedProject)!}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   )
 }

@@ -5,9 +5,13 @@ import LoadingAnimation from "@/components/LoadingAnimation"
 import Navbar from "@/components/Navbar"
 import HeroSection from "@/components/HeroSection"
 import ProjectsSection from "@/components/ProjectsSection"
+import StickyProjectsSection from "@/components/StickyProjectsSection"
 import AboutSection from "@/components/AboutSection"
 import ContactSection from "@/components/ContactSection"
 import Footer from "@/components/Footer"
+import MarqueeSection from "../components/Marquee"
+// import TestimonialSection from "@/components/TestimonialSection"
+import StatsSection from "@/components/StatsSection"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +39,11 @@ export default function Home() {
       <Navbar heroRef={heroRef} projectsRef={projectsRef} aboutRef={aboutRef} contactRef={contactRef} />
 
       <HeroSection ref={heroRef} />
+      <StatsSection />
+      <StickyProjectsSection />
+      <MarqueeSection />
       <ProjectsSection ref={projectsRef} />
+      {/* <TestimonialSection /> */}
       <AboutSection ref={aboutRef} />
       <ContactSection ref={contactRef} />
       <Footer />

@@ -4,7 +4,7 @@ import { forwardRef, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import Image from "next/image"
 import { FileText, Mail } from "lucide-react"
-
+import RiveAnimation from "./RiveAnimation"
 const skills = [
   { name: "React", color: "text-cyan-400" },
   { name: "Next.js", color: "text-white" },
@@ -100,7 +100,7 @@ const AboutSection = forwardRef<HTMLElement>((props, ref) => {
             }}
           >
             <div className="relative w-full h-[400px] rounded-2xl overflow-hidden border border-indigo-500/20">
-              <Image src="/placeholder.svg?height=400&width=400" alt="Nitin Pandey" fill className="object-cover" />
+            <RiveAnimation animationSrc="/hero/loading.riv" />
 
               {/* Decorative elements */}
               <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full blur-3xl opacity-30 bg-indigo-500" />

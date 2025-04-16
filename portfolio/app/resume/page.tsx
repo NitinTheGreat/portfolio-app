@@ -10,7 +10,7 @@ export default function ResumePage() {
   const [loadError, setLoadError] = useState(false)
 
   // PDF path - make sure this matches where your file is located in the public folder
-  const resumePath = "/hero/resume.pdf"
+  const resumePath = "/static/resume.pdf"
 
   const handleIframeError = () => {
     setLoadError(true)

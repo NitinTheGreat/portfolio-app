@@ -225,7 +225,7 @@ function SolarSystem() {
           orbitSpeed={0.2}
         />
 
-        {/* Jupiter with ring */}
+        {/* Jupiter with ring
         <Planet
           position={[0, 0, 0]}
           color="#eab308"
@@ -237,8 +237,8 @@ function SolarSystem() {
         />
         <PlanetRing position={[0, 0, 0]} color="#eab308" innerRadius={0.9} outerRadius={1.2} rotationSpeed={0.1} />
 
-        {/* Saturn with prominent ring */}
-        <Planet
+        // {/* Saturn with prominent ring */}
+        {/* <Planet
           position={[0, 0, 0]}
           color="#f97316"
           size={0.7}
@@ -247,7 +247,7 @@ function SolarSystem() {
           orbitRadius={13}
           orbitSpeed={0.08}
         />
-        <PlanetRing position={[13, 0, 0]} color="#f97316" innerRadius={1} outerRadius={2} rotationSpeed={0.05} />
+        <PlanetRing position={[13, 0, 0]} color="#f97316" innerRadius={1} outerRadius={2} rotationSpeed={0.05} /> */}
       </group>
 
       <StarField />
@@ -292,6 +292,8 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   return (
+    <>
+      
     <motion.section
       ref={ref}
       id="hero"
@@ -302,7 +304,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
       <AnimatedBackgroundGradient />
 
       {/* 3D Background */}
-      <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0 -z-20">
         <Canvas>
           <SolarSystem />
         </Canvas>
@@ -311,10 +313,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
       {/* Glowing orbs */}
       <GlowingOrbs />
 
-      {/* Rive animation container - bottom */}
-      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-64 h-64 z-20 opacity-70 hidden md:block">
-        <RiveAnimation animationSrc="/animations/tech-orbit.riv" />
-      </div>
+    
 
       {/* Content overlay */}
       <div className="z-30 text-center px-4 relative">
@@ -325,7 +324,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-indigo-300 text-sm font-medium">Full Stack Developer & UI/UX Designer</span>
+          <span className="text-indigo-300 text-sm font-medium">Full Stack and AI & ML </span>
         </motion.div>
 
         <motion.h1
@@ -335,7 +334,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
-            Nitin Pandey
+            Nitin Kumar Pandey
           </span>
           <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 rounded-full"></div>
         </motion.h1>
@@ -346,8 +345,9 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          I craft digital experiences that blend creativity with cutting-edge technology.
-          <span className="hidden sm:inline"> Building innovative solutions that make a difference.</span>
+          Roses are red, my screen is blue
+          <br />
+          <span className="hidden sm:inline"> Because I deleted, System32</span>
         </motion.p>
 
         <motion.div
@@ -363,10 +363,13 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
             TypeScript
           </span>
           <span className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-900/50 to-blue-900/50 text-slate-300 border border-cyan-500/30 backdrop-blur-sm">
-            Node.js
+            Java
           </span>
           <span className="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-900/50 to-green-900/50 text-slate-300 border border-emerald-500/30 backdrop-blur-sm">
             Machine Learning
+          </span>
+          <span className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-700/55 to-pink-600/55 text-slate-300 border border-indigo-500/45 backdrop-blur-sm">
+            Golang
           </span>
         </motion.div>
 
@@ -396,9 +399,12 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           </motion.a>
         </motion.div>
       </div>
-
+    {/* Rive animation container - bottom */}
+    <div className=" overflow-x-hidden absolute left-0 right-0 w-[100vw] h-[100vh] -z-10 opacity-60  md:block flex justify-center items-center">
+        <RiveAnimation animationSrc="/hero/hero.riv" />
+      </div>
       {/* Decorative elements */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-950 to-transparent z-20" />
+      {/* <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-950 to-transparent z-20" />
 
       <motion.div
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30"
@@ -429,8 +435,9 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
             }}
           />
         </motion.div>
-      </motion.div>
+      </motion.div> */}
     </motion.section>
+    </>
   )
 })
 

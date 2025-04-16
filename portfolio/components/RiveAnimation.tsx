@@ -23,7 +23,7 @@ export default function RiveAnimation({
     stateMachines: stateMachine,
     autoplay: autoplay,
     layout: new Layout({
-      fit: Fit.Contain,
+      fit: Fit.Cover,
       alignment: Alignment.Center,
     }),
     onLoad: () => setIsRiveLoaded(true),
@@ -72,7 +72,7 @@ export default function RiveAnimation({
   // Fallback content if Rive fails to load
   if (hasError) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full ">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 to-cyan-900/30 animate-gradient"></div>
       </div>
     )
@@ -85,7 +85,7 @@ export default function RiveAnimation({
           <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
-      <RiveCanvas className="w-full h-full" />
+      <RiveCanvas/>
     </div>
   )
 }

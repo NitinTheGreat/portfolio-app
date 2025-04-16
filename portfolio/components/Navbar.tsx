@@ -54,11 +54,11 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, ski
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <motion.div
-            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400"
+            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400 cursor-pointer"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            Nitin Pandey
+            Nitin Kumar Pandey
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -66,7 +66,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, ski
             {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
-                className="text-white/80 hover:text-white transition-colors"
+                className="text-white/80 hover:text-white transition-colors cursor-pointer"
                 onClick={() => scrollToSection(item.ref)}
                 whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}

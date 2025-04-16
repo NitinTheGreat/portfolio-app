@@ -224,32 +224,8 @@ function SolarSystem() {
           orbitRadius={7.5}
           orbitSpeed={0.2}
         />
-
-        {/* Jupiter with ring
-        <Planet
-          position={[0, 0, 0]}
-          color="#eab308"
-          size={0.8}
-          speed={0.15}
-          distort={0.2}
-          orbitRadius={10}
-          orbitSpeed={0.1}
-        />
-        <PlanetRing position={[0, 0, 0]} color="#eab308" innerRadius={0.9} outerRadius={1.2} rotationSpeed={0.1} />
-
-        // {/* Saturn with prominent ring */}
-        {/* <Planet
-          position={[0, 0, 0]}
-          color="#f97316"
-          size={0.7}
-          speed={0.1}
-          distort={0.15}
-          orbitRadius={13}
-          orbitSpeed={0.08}
-        />
-        <PlanetRing position={[13, 0, 0]} color="#f97316" innerRadius={1} outerRadius={2} rotationSpeed={0.05} /> */}
       </group>
-
+          
       <StarField />
 
       <Environment preset="night" />
@@ -260,7 +236,7 @@ function SolarSystem() {
 // Animated background gradient component
 function AnimatedBackgroundGradient() {
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 z-0 overflow-hidden overflow-x-hidden">
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-indigo-900/30 to-transparent opacity-50" />
       <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-gradient-radial from-purple-900/30 to-transparent opacity-30 animate-pulse-slow" />
       <div className="absolute bottom-0 right-0 w-3/4 h-3/4 bg-gradient-radial from-cyan-900/20 to-transparent opacity-40" />
@@ -297,7 +273,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
     <motion.section
       ref={ref}
       id="hero"
-      className="h-screen relative flex flex-col items-center justify-center overflow-hidden overflow-x-hidden"
+      className="h-screen w-[100vw] relative flex flex-col items-center justify-center overflow-hidden overflow-x-hidden"
       style={{ opacity }}
     >
       {/* Animated background elements */}

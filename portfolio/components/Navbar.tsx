@@ -79,8 +79,8 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, ski
               </motion.button>
             ))}
             <motion.a
-              href="/resume.pdf"
-              target="_blank"
+              href="/resume"
+              // target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
               whileHover={{ scale: 1.05 }}
@@ -130,8 +130,8 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, ski
               </motion.button>
             ))}
             <motion.a
-              href="/resume.pdf"
-              target="_blank"
+              href="/resume"
+              // target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium"
               initial={{ opacity: 0, y: 20 }}
@@ -144,7 +144,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, ski
 
           <div className="absolute bottom-10 left-0 right-0 flex justify-center space-x-6">
             <motion.a
-              href="https://github.com/NItinTheGreat"
+              href="https://github.com/NitinTheGreat"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -5 }}

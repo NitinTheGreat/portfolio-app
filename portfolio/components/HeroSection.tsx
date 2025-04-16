@@ -380,13 +380,13 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <motion.a
-            href="#projects"
+            href="/surprise"
             className="px-8 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Explore My Work
-            <ArrowDown className="w-4 h-4" />
+            Click for surprise
+            {/* <ArrowDown className="w-4 h-4" /> */}
           </motion.a>
 
           <motion.a

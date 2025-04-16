@@ -42,10 +42,10 @@ const skills = [
   { name: "AWS", icon: FaAws, color: "text-yellow-500" },
 //   { name: "Azure", icon: SiAzure, color: "text-blue-600" },
   { name: "Vercel", icon: SiVercel, color: "text-white" },
-  { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
-  { name: "Redis", icon: SiRedis, color: "text-red-500" },
+  // { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
+  // { name: "Redis", icon: SiRedis, color: "text-red-500" },
   { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-400" },
-  { name: "GitHub", icon: FaGithub, color: "text-white" },
+  // { name: "GitHub", icon: FaGithub, color: "text-white" },
 ]
 
 const SkillsSection = forwardRef<HTMLElement>((props, ref) => {

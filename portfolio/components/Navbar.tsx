@@ -40,6 +40,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, ski
     { name: "Skills", ref: skillsRef },
     { name: "About", ref: aboutRef },
     { name: "Contact", ref: contactRef },
+   
   ]
 
   return (

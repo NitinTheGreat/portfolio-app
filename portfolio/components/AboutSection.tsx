@@ -125,14 +125,10 @@ const AboutSection = forwardRef<HTMLElement>((props, ref) => {
               My Journey
             </h3>
             <p className="text-slate-300 mb-6">
-              I'm a full-stack developer with a passion for creating beautiful, functional, and user-friendly
-              applications. With over 5 years of experience in web development, I've worked on a variety of projects
-              ranging from e-commerce platforms to AI-powered applications.
+              It started with QBasic when I started to hate Computer Science but all changed with Java and the introduction of programming paradigms. I fell in love with programming and started to explore the world of web development. I have worked on various projects, from small personal websites to large-scale applications, and I enjoy every step of the process.
             </p>
             <p className="text-slate-300 mb-6">
-              My approach combines technical expertise with creative problem-solving to deliver solutions that not only
-              meet but exceed expectations. I'm constantly learning and exploring new technologies to stay at the
-              forefront of the industry.
+              I might not be the best developer, but I am always eager to learn and improve. I believe in the power of collaboration and open-source, and I love sharing my knowledge with others. I am currently exploring the world of AI and machine learning, and I am excited about the possibilities it brings to web development.
             </p>
 
             <div className="flex gap-4">
@@ -149,7 +145,7 @@ const AboutSection = forwardRef<HTMLElement>((props, ref) => {
               </motion.a>
 
               <motion.a
-                href="mailto:nitinkrpandey@gmail.com"
+                href="mailto:nitinpandey1304@gmail.com"
                 className="px-6 py-3 rounded-lg bg-slate-800 text-white font-medium border border-slate-700 hover:bg-slate-700 transition-all flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

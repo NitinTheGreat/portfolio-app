@@ -5,23 +5,31 @@ import React from "react"
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { FaReact, FaNodeJs, FaPython, FaDatabase } from "react-icons/fa"
+import { SiAwsfargate } from "react-icons/si"
 // import { SiAzure } from "react-icons/si"
 
 // Simplified version without 3D models that were causing errors
 const expertiseAreas = [
   {
     id: 1,
-    name: "Web Development",
+    name: "Frontend Development",
     icon: FaReact,
     description: "Building responsive and interactive web applications with modern frameworks and technologies.",
     skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js"],
   },
+  // {
+  //   id: 2,
+  //   name: "Mobile Development",
+  //   icon: FaNodeJs,
+  //   description: "Creating cross-platform mobile applications with React Native and native technologies.",
+  //   skills: ["React Native", "Flutter", "iOS", "Android", "Firebase"],
+  // },
   {
     id: 2,
-    name: "Mobile Development",
-    icon: FaNodeJs,
-    description: "Creating cross-platform mobile applications with React Native and native technologies.",
-    skills: ["React Native", "Flutter", "iOS", "Android", "Firebase"],
+    name: "Backend Development",
+    icon: FaDatabase,
+    description: "Designing and implementing scalable server-side applications and APIs.",
+    skills: ["Node.js", "Django", "Golang", "MySQL", "MongoDB"],
   },
   {
     id: 3,
@@ -30,17 +38,11 @@ const expertiseAreas = [
     description: "Implementing intelligent systems using machine learning algorithms and neural networks.",
     skills: ["TensorFlow", "PyTorch", "Scikit-learn", "Computer Vision", "NLP"],
   },
+ 
   {
     id: 4,
-    name: "Backend Development",
-    icon: FaDatabase,
-    description: "Designing and implementing scalable server-side applications and APIs.",
-    skills: ["Node.js", "Django", "Golang", "MySQL", "MongoDB"],
-  },
-  {
-    id: 5,
     name: "Cloud Services",
-    // icon: SiAzure,
+    icon: SiAwsfargate,
     description: "Deploying and managing applications on cloud platforms with modern DevOps practices.",
     skills: ["AWS", "Azure", "Docker", "Kubernetes", "CI/CD"],
   },

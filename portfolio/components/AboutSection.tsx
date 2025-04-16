@@ -133,8 +133,8 @@ const AboutSection = forwardRef<HTMLElement>((props, ref) => {
 
             <div className="flex gap-4">
               <motion.a
-                href="/resume.pdf"
-                target="_blank"
+                href="/resume"
+                // target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}

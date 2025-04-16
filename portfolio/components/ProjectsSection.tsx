@@ -130,16 +130,16 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
           ))}
         </motion.div>
 
-        <motion.h3
+        {/* <motion.h3
           className="text-3xl font-bold mt-24 mb-10 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isOtherInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+          {/* <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
             Other Projects
-          </span>
-        </motion.h3>
+          </span> */}
+        {/* </motion.h3> */}
 
         {/* Sticky Other Projects Section */}
         {/* <div

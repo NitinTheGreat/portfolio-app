@@ -1,12 +1,14 @@
 "use client"
 
+import type React from "react"
+
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, AnimatePresence, useInView } from "framer-motion"
 import { projects } from "@/lib/data"
 import ProjectModal from "./ProjectModal"
 import { Github, ExternalLink } from "lucide-react"
 
-export default function StickyProjectsSection({ ref }: {ref: React.RefObject<HTMLDivElement | null> }) {
+export default function StickyProjectsSection({ ref }: { ref: React.RefObject<HTMLDivElement | null> }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
@@ -55,28 +57,31 @@ export default function StickyProjectsSection({ ref }: {ref: React.RefObject<HTM
       : ["0%", "-50%", "-100%"], // Less movement needed on desktop
   )
 
-  // Generate different gradient colors for each project
+  // Generate premium gradient colors for each project
   const getGradient = (index: number, isHighlighted = false) => {
-    const gradients = [
-      "from-indigo-900/80 to-cyan-900/80", // Indigo to Cyan
-      "from-purple-900/80 to-pink-900/80", // Purple to Pink
-      "from-cyan-900/80 to-emerald-900/80", // Cyan to Emerald
-      "from-amber-900/80 to-red-900/80", // Amber to Red
-      "from-emerald-900/80 to-teal-900/80", // Emerald to Teal
-      "from-rose-900/80 to-orange-900/80", // Rose to Orange
-      "from-blue-900/80 to-indigo-900/80", // Blue to Indigo
-    ]
-
-    // Premium gradients for highlighted projects
+    // Rich, premium gradients for all cards
     const premiumGradients = [
-      "from-amber-800/90 to-yellow-700/90", // Gold-like
-      "from-slate-800/90 to-zinc-700/90", // Platinum-like\
-      "from-rose-800  // Gold-like",
-      "from-slate-800/90 to-zinc-700/90", // Platinum-like
-      "from-rose-800/90 to-pink-700/90", // Rose Gold-like
+      { from: "#312e81", to: "#5b21b6" }, // Deep indigo to violet
+      { from: "#065f46", to: "#115e59" }, // Rich emerald to teal
+      { from: "#881337", to: "#9d174d" }, // Deep rose to pink
+      { from: "#78350f", to: "#9a3412" }, // Rich amber to orange
+      { from: "#164e63", to: "#1e40af" }, // Deep cyan to blue
+      { from: "#581c87", to: "#86198f" }, // Rich purple to fuchsia
+      { from: "#0f172a", to: "#27272a" }, // Elegant slate to zinc
     ]
 
-    return isHighlighted ? premiumGradients[index % premiumGradients.length] : gradients[index % gradients.length]
+    // Extra premium gradients for highlighted projects
+    const highlightedGradients = [
+      { from: "#92400e", to: "#ca8a04" }, // Luxurious gold
+      { from: "#1e293b", to: "#4b5563" }, // Premium platinum
+      { from: "#9d174d", to: "#db2777" }, // Elegant rose gold
+      { from: "#065f46", to: "#16a34a" }, // Rich emerald
+      { from: "#1e40af", to: "#4f46e5" }, // Royal blue
+    ]
+
+    return isHighlighted
+      ? highlightedGradients[index % highlightedGradients.length]
+      : premiumGradients[index % premiumGradients.length]
   }
 
   return (
@@ -111,83 +116,85 @@ export default function StickyProjectsSection({ ref }: {ref: React.RefObject<HTM
             </motion.p>
           </div>
 
-          {highlightedProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="min-w-[300px] sm:min-w-[350px] md:min-w-[400px] h-[500px] md:h-[600px] flex-shrink-0 cursor-pointer"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.5 }}
-              whileHover={{
-                y: -20,
-                transition: { type: "spring", stiffness: 300, damping: 20 },
-              }}
-              onClick={() => setSelectedProject(project.id)}
-            >
-              <div
-                className={`w-full h-full rounded-2xl p-6 flex flex-col justify-between bg-gradient-to-br ${getGradient(
-                  index,
-                  project.isHighlighted,
-                )} backdrop-blur-sm border border-white/10 cursor-pointer shadow-lg hover:shadow-xl transition-all`}
-                style={{
-                  backgroundImage: project.id === 2 ? "url(/placeholder.svg?height=600&width=400)" : "none",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundBlendMode: "overlay",
+          {highlightedProjects.map((project, index) => {
+            const gradient = getGradient(index, project.isHighlighted)
+            return (
+              <motion.div
+                key={project.id}
+                className="min-w-[300px] sm:min-w-[350px] md:min-w-[400px] h-[500px] md:h-[600px] flex-shrink-0 cursor-pointer"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+                whileHover={{
+                  y: -20,
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
                 }}
+                onClick={() => setSelectedProject(project.id)}
               >
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-slate-300">{project.shortDescription}</p>
-                </div>
+                <div
+                  className="w-full h-full rounded-2xl p-6 flex flex-col justify-between backdrop-blur-sm border border-white/10 cursor-pointer shadow-lg hover:shadow-xl transition-all text-white"
+                  style={{
+                    background: project.isHighlighted
+                      ? `linear-gradient(to bottom right, ${gradient.from}, ${gradient.to}), url(/placeholder.svg?height=600&width=400)`
+                      : `linear-gradient(to bottom right, ${gradient.from}, ${gradient.to})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundBlendMode: "overlay",
+                  }}
+                >
+                  <div>
+                    <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-slate-300">{project.shortDescription}</p>
+                  </div>
 
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project.technologies.slice(0, 4).map((tech) => (
-                    <span key={tech} className="px-3 py-1 text-sm rounded-full bg-black/30 text-slate-300">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <span className="px-3 py-1 text-sm rounded-full bg-black/30 text-slate-300">
-                      +{project.technologies.length - 4}
-                    </span>
-                  )}
-                </div>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.technologies.slice(0, 4).map((tech) => (
+                      <span key={tech} className="px-3 py-1 text-sm rounded-full bg-black/30 text-slate-300">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="px-3 py-1 text-sm rounded-full bg-black/30 text-slate-300">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
 
-                <div className="flex gap-4 mt-6">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Github className="w-5 h-5" />
-                  </a>
-
-                  {project.liveUrl && (
+                  <div className="flex gap-4 mt-6">
                     <a
-                      href={project.liveUrl}
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <ExternalLink className="w-5 h-5" />
+                      <Github className="w-5 h-5" />
                     </a>
+
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                      </a>
+                    )}
+                  </div>
+
+                  {project.isHighlighted && (
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-medium">
+                        Featured
+                      </span>
+                    </div>
                   )}
                 </div>
-
-                {project.isHighlighted && (
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-medium">
-                      Featured
-                    </span>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
 

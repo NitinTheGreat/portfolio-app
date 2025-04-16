@@ -14,7 +14,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
   const isInView = useInView(containerRef, { 
     once: false, 
     amount: 0.1,  // Reduced from 0.2 to 0.1 to trigger earlier
-    margin: "200px 0px" // Increased margin to keep it visible longer
+    margin: "400px 0px" // Increased margin to keep it visible longer
   })
   
   const [formStatus, setFormStatus] = useState<{
@@ -32,17 +32,17 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
       const formData = new FormData(e.currentTarget)
 
       // For development, simulate a successful submission
-      if (process.env.NODE_ENV === "development") {
-        setTimeout(() => {
-          setFormStatus({
-            type: "success",
-            message: "Message sent successfully! (Development mode)",
-          })
-          e.currentTarget.reset()
-          setIsSubmitting(false)
-        }, 1000)
-        return
-      }
+      // if (process.env.NODE_ENV === "development") {
+      //   setTimeout(() => {
+      //     setFormStatus({
+      //       type: "success",
+      //       message: "Message sent successfully! (Development mode)",
+      //     })
+      //     e.currentTarget.reset()
+      //     setIsSubmitting(false)
+      //   }, 1000)
+      //   return
+      // }
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -50,25 +50,26 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
       })
 
       const data = await response.json()
+      console.log("Response data:", data)
+      console.log("Response status:", response.status)
+      console.log("Response ok:", response.ok)
+      console.log("Response status text:", response.statusText)
 
-      if (response.ok) {
+      if (response.status === 200) {
         setFormStatus({
           type: "success",
           message: data.message || "Message sent successfully! I'll get back to you soon.",
         })
         // Reset form
         e.currentTarget.reset()
-      } else {
+      }
+      else {
         setFormStatus({
           type: "error",
-          message: data.error || "Something went wrong. Please try again.",
+          message: data.error,
         })
       }
-    } catch (error) {
-      setFormStatus({
-        type: "error",
-        message: "Something went wrong. Please try again.",
-      })
+    
     } finally {
       setIsSubmitting(false)
     }
@@ -105,7 +106,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            Have a project in mind or want to collaborate? Feel free to reach out!
+            Don't worry, this works... Feel free to send a message
           </motion.p>
         </motion.div>
 
@@ -133,10 +134,10 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                 <div>
                   <h4 className="text-lg font-medium text-white">Email</h4>
                   <a
-                    href="mailto:nitinkrpandey@gmail.com"
+                    href="mailto:nitinpandey1304@gmail.com"
                     className="text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer"
                   >
-                    nitinkrpandey@gmail.com
+                    nitinpandey1304@gmail.com
                   </a>
                 </div>
               </div>
@@ -147,7 +148,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-white">Location</h4>
-                  <p className="text-slate-300">Bangalore, India</p>
+                  <p className="text-slate-300">Vellore, India</p>
                 </div>
               </div>
 
@@ -173,7 +174,7 @@ const ContactSection = forwardRef<HTMLElement>((props, ref) => {
               <h4 className="text-lg font-medium text-white mb-4">Follow Me</h4>
               <div className="flex gap-4">
                 <motion.a
-                  href="https://github.com/NItinTheGreat"
+                  href="https://github.com/NitinTheGreat"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"

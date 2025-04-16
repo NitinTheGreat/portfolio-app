@@ -27,7 +27,7 @@ export default function Footer() {
 
             <div className="flex gap-4 mt-6">
               <motion.a
-                href="https://github.com/NItinTheGreat"
+                href="https://github.com/NitinTheGreat"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-slate-900 hover:bg-slate-800 transition-colors"
@@ -92,13 +92,13 @@ export default function Footer() {
             <ul className="space-y-2">
               <li className="flex items-center gap-2 text-slate-400">
                 <MdEmail className="w-4 h-4 text-indigo-400" />
-                <a href="mailto:nitinkrpandey@gmail.com" className="hover:text-indigo-400 transition-colors">
-                  nitinkrpandey@gmail.com
+                <a href="mailto:nitinpandey1304@gmail.com" className="hover:text-indigo-400 transition-colors">
+                  nitinpandey1304@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2 text-slate-400">
                 <MdLocationOn className="w-4 h-4 text-indigo-400" />
-                <span>Bangalore, India</span>
+                <span>Vellore, India</span>
               </li>
             </ul>
           </div>
@@ -107,20 +107,7 @@ export default function Footer() {
         <div className="border-t border-slate-900 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-slate-500 text-sm">&copy; {currentYear} Nitin Pandey. All rights reserved.</p>
 
-          <div className="mt-4 md:mt-0">
-            <ul className="flex gap-6">
-              <li>
-                <Link href="/privacy" className="text-slate-500 text-sm hover:text-indigo-400 transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-slate-500 text-sm hover:text-indigo-400 transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
+           
         </div>
       </div>
     </footer>

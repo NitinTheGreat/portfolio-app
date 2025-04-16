@@ -39,7 +39,7 @@ export default function Home() {
   }
 
   return (
-    <main>
+    <main className="overflow-x-clip">
       <Navbar heroRef={heroRef} projectsRef={projectsRef} aboutRef={aboutRef} contactRef={contactRef} skillsRef={skillsRef} />
       {/* <Navbar heroRef={heroRef} projectsRef={projectsRef} aboutRef={aboutRef} contactRef={contactRef} /> */}
 

@@ -34,14 +34,14 @@ export async function POST(request: NextRequest) {
       secure: process.env.EMAIL_SECURE === "true",
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
+        pass: process.env.EMAIL_PASSWORD, 
       },
     })
 
     // Email content
     const mailOptions = {
       from: process.env.EMAIL_FROM || email,
-      to: process.env.EMAIL_TO || "nitinkrpandey@gmail.com",
+      to: process.env.EMAIL_TO ,
       subject: `Portfolio Contact: ${subject}`,
       text: `
         Name: ${name}
@@ -65,13 +65,13 @@ export async function POST(request: NextRequest) {
     }
 
     // In development, just log the email
-    if (process.env.NODE_ENV === "development") {
-      console.log("Email would be sent:", mailOptions)
-      return NextResponse.json(
-        { message: "Email sent successfully! (Development mode - email logged to console)" },
-        { status: 200 },
-      )
-    }
+    // if (process.env.NODE_ENV === "development") {
+    //   console.log("Email would be sent:", mailOptions)
+    //   return NextResponse.json(
+    //     { message: "Email sent successfully! (Development mode - email logged to console)" },
+    //     { status: 200 },
+    //   )
+    // }
 
     // Send email
     await transporter.sendMail(mailOptions)

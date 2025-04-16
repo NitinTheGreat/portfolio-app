@@ -7,6 +7,15 @@ import Link from "next/link"
 
 export default function ResumePage() {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
+
+  // PDF path - make sure this matches where your file is located in the public folder
+  const resumePath = "/hero/resume.pdf"
+
+  const handleIframeError = () => {
+    setLoadError(true)
+    setIsLoading(false)
+  }
 
   return (
     <main className="min-h-screen bg-slate-950 text-white py-16 px-4">
@@ -24,7 +33,7 @@ export default function ResumePage() {
           </Link>
 
           <motion.a
-            href="/hero/resume.pdf"
+            href={resumePath}
             download
             className="flex items-center gap-2 px-6 py-3 cursor-pointer rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all"
             whileHover={{ scale: 1.05 }}
@@ -47,12 +56,32 @@ export default function ResumePage() {
             </div>
           )}
 
-          <iframe
-            src="/hero/resume.pdf"
-            className="w-full h-[800px]"
-            onLoad={() => setIsLoading(false)}
-            style={{ display: isLoading ? "none" : "block" }}
-          />
+          {loadError ? (
+            <div className="flex flex-col justify-center items-center h-[800px] p-8 text-center">
+              <h3 className="text-xl font-bold text-red-400 mb-4">Unable to load resume preview</h3>
+              <p className="text-slate-400 mb-6">
+                The resume preview couldn't be loaded, but you can still download it using the button above.
+              </p>
+              <motion.a
+                href={resumePath}
+                download
+                className="flex items-center gap-2 px-6 py-3 cursor-pointer rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaDownload className="w-4 h-4" />
+                Download Resume
+              </motion.a>
+            </div>
+          ) : (
+            <iframe
+              src={resumePath}
+              className="w-full h-[800px]"
+              onLoad={() => setIsLoading(false)}
+              onError={handleIframeError}
+              style={{ display: isLoading ? "none" : "block" }}
+            />
+          )}
         </motion.div>
       </div>
     </main>

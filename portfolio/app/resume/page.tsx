@@ -14,7 +14,7 @@ export default function ResumePage() {
         <div className="flex justify-between items-center mb-8">
           <Link href="/">
             <motion.button
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 cursor-pointer rounded-full bg-slate-900 hover:bg-slate-800 transition-colors"
               whileHover={{ x: -5 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -24,9 +24,9 @@ export default function ResumePage() {
           </Link>
 
           <motion.a
-            href="/resume.pdf"
+            href="/hero/resume.pdf"
             download
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all"
+            className="flex items-center gap-2 px-6 py-3 cursor-pointer rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -48,7 +48,7 @@ export default function ResumePage() {
           )}
 
           <iframe
-            src="/resume.pdf"
+            src="/hero/resume.pdf"
             className="w-full h-[800px]"
             onLoad={() => setIsLoading(false)}
             style={{ display: isLoading ? "none" : "block" }}

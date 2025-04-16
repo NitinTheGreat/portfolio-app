@@ -1,16 +1,10 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
-import { useRive } from "@rive-app/react-canvas"
+import RiveAnimation from "@/components/RiveAnimation"
 
 export default function LoadingAnimation() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { RiveComponent } = useRive({
-    src: "/hero/loading.riv",
-  
-    autoplay: true,
-  })
 
   // Create a particle effect in the background
   useEffect(() => {
@@ -55,19 +49,11 @@ export default function LoadingAnimation() {
       ref={containerRef}
       className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-slate-950 to-indigo-950 overflow-hidden relative"
     >
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{
-          duration: 0.5,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "reverse",
-        }}
-        className="w-64 h-64 relative z-10"
-      >
-        hello world
-        <RiveComponent />
-      </motion.div>
+      {/* Rive animation - using the same pattern as your working component */}
+      <div className=" overflow-x-hidden absolute left-0 right-0 w-[100vw] h-[100vh] z-999 opacity-60  md:block flex justify-center items-center">
+        
+        <RiveAnimation animationSrc="/planet.riv" />
+      </div>
 
       <style jsx>{`
         @keyframes float {

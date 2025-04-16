@@ -56,7 +56,7 @@ export default function Custom404() {
         >
           <span className="inline-block">4</span>
           <motion.span
-            className="inline-block"
+            className="inline-block text-purple-500"
             animate={{ rotateY: [0, 180, 360] }}
             transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "linear" }}
           >
@@ -66,7 +66,7 @@ export default function Custom404() {
         </motion.div>
 
         <motion.div
-          className="text-xl mt-6 max-w-md text-center font-light"
+          className="text-xl ml-12 mr-12 md:mr-0 md:ml-0  mt-6 max-w-md text-center font-light"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -76,7 +76,7 @@ export default function Custom404() {
 
         <Link href="/">
           <motion.button
-            className="mt-10 px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold flex items-center shadow-lg shadow-blue-500/20"
+            className="mt-10 px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white cursor-pointer rounded-full font-semibold flex items-center shadow-lg shadow-blue-500/20"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 0 25px rgba(79, 70, 229, 0.6)",
@@ -175,7 +175,7 @@ export default function Custom404() {
         }}
       />
 
-      {/* Individual twinkling stars - completely independent of mouse movement */}
+      {/* Individual twinkling stars - completely independent of mouse movement
       <AnimatePresence>
         {showStars && (
           <>
@@ -209,7 +209,7 @@ export default function Custom404() {
             })}
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Floating astronaut */}
       <motion.div

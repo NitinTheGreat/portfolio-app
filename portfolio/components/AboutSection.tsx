@@ -3,32 +3,32 @@
 import { forwardRef, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import Image from "next/image"
-import { FaReact, FaNodeJs, FaPython, FaDocker, FaAws } from "react-icons/fa"
-import { SiNextdotjs, SiTypescript, SiTailwindcss, SiMongodb, SiFirebase, SiTensorflow, SiThreedotjs } from "react-icons/si"
-import { HiDocument } from "react-icons/hi"
-import { MdEmail } from "react-icons/md"
+import { FileText, Mail } from "lucide-react"
 
 const skills = [
-  { name: "React", icon: FaReact, color: "text-cyan-400" },
-  { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
-  { name: "TypeScript", icon: SiTypescript, color: "text-blue-400" },
-  { name: "Node.js", icon: FaNodeJs, color: "text-green-400" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
-  { name: "Firebase", icon: SiFirebase, color: "text-yellow-500" },
-  { name: "Python", icon: FaPython, color: "text-blue-500" },
-  { name: "TensorFlow", icon: SiTensorflow, color: "text-orange-500" },
-  { name: "Three.js", icon: SiThreedotjs, color: "text-white" },
-  { name: "Docker", icon: FaDocker, color: "text-blue-400" },
-  { name: "AWS", icon: FaAws, color: "text-yellow-500" },
+  { name: "React", color: "text-cyan-400" },
+  { name: "Next.js", color: "text-white" },
+  { name: "TypeScript", color: "text-blue-400" },
+  { name: "JavaScript", color: "text-yellow-400" },
+  { name: "Node.js", color: "text-green-400" },
+  { name: "Tailwind CSS", color: "text-cyan-400" },
+  { name: "MongoDB", color: "text-green-500" },
+  { name: "MySQL", color: "text-blue-500" },
+  { name: "Firebase", color: "text-yellow-500" },
+  { name: "Python", color: "text-blue-500" },
+  { name: "Java", color: "text-orange-500" },
+  { name: "Golang", color: "text-blue-400" },
+  { name: "Django", color: "text-green-600" },
+  { name: "TensorFlow", color: "text-orange-500" },
+  { name: "Three.js", color: "text-white" },
+  { name: "Docker", color: "text-blue-400" },
+  { name: "AWS", color: "text-yellow-500" },
+  { name: "Azure", color: "text-blue-600" },
 ]
 
 const AboutSection = forwardRef<HTMLElement>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false, amount: 0.2 })
-  const skillsRef = useRef<HTMLDivElement>(null)
-const skillsInView = useInView(skillsRef, { once: false, amount: 0.2 })
-
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -144,7 +144,7 @@ const skillsInView = useInView(skillsRef, { once: false, amount: 0.2 })
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <HiDocument className="w-5 h-5" />
+                <FileText className="w-5 h-5" />
                 Resume
               </motion.a>
 
@@ -154,46 +154,14 @@ const skillsInView = useInView(skillsRef, { once: false, amount: 0.2 })
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <MdEmail className="w-5 h-5" />
+                <Mail className="w-5 h-5" />
                 Contact Me
               </motion.a>
             </div>
           </motion.div>
         </div>
 
-        <motion.h3
-  className="text-3xl font-bold mt-24 mb-10 text-center"
-  initial={{ opacity: 0, y: -90 }}
-  animate={skillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -90 }}
-  transition={{ delay: 0.2, duration: 0.8 }}
->
-  <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
-    Skills & Technologies
-  </span>
-</motion.h3>
-
-<motion.div
-  ref={skillsRef}
-  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
-  variants={containerVariants}
-  initial="hidden"
-  animate={skillsInView ? "visible" : "hidden"}
->
-  {skills.map((skill) => (
-    <motion.div
-      key={skill.name}
-      variants={itemVariants}
-      whileHover={{ y: -5 }}
-      className="flex flex-col items-center p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-indigo-500/30 transition-all"
-    >
-      <div className={`text-3xl mb-2 ${skill.color}`}>
-        <skill.icon className="w-10 h-10" />
-      </div>
-      <span className="text-sm font-medium text-slate-300">{skill.name}</span>
-    </motion.div>
-  ))}
-</motion.div>
-
+       
       </div>
     </section>
   )

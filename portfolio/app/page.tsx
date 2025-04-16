@@ -13,7 +13,8 @@ import MarqueeSection from "@/components/Marquee"
 // import TestimonialSection from "@/components/TestimonialSection"
 import StatsSection from "@/components/StatsSection"
 import ThreeDExperienceSection from "@/components/3dExperienceSection"
-
+import OtherProjectsSection from "@/components/OtherProjectsSection"
+import SkillsSection from "@/components/SkillsSection"
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
 
@@ -22,6 +23,8 @@ export default function Home() {
   const projectsRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
   const contactRef = useRef<HTMLElement>(null)
+  const stickyProjectsRef = useRef<HTMLDivElement>(null)
+  const skillsRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,17 +39,20 @@ export default function Home() {
   }
 
   return (
-    <main className="bg-slate-950 text-white min-h-screen">
-      <Navbar heroRef={heroRef} projectsRef={projectsRef} aboutRef={aboutRef} contactRef={contactRef} />
+    <main>
+      <Navbar heroRef={heroRef} projectsRef={projectsRef} aboutRef={aboutRef} contactRef={contactRef} skillsRef={skillsRef} />
+      {/* <Navbar heroRef={heroRef} projectsRef={projectsRef} aboutRef={aboutRef} contactRef={contactRef} /> */}
 
       <HeroSection ref={heroRef} />
-      <StatsSection />
-      <StickyProjectsSection />
+      <StickyProjectsSection ref={stickyProjectsRef} />
+      {/* <StickyProjectsSection /> */}
       <MarqueeSection />
       <ProjectsSection ref={projectsRef} />
+      <OtherProjectsSection />
       <ThreeDExperienceSection />
       {/* <TestimonialSection /> */}
       <AboutSection ref={aboutRef} />
+      <SkillsSection ref={skillsRef} />
       <ContactSection ref={contactRef} />
       <Footer />
     </main>

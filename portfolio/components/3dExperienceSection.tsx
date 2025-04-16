@@ -1,27 +1,48 @@
 "use client"
 
+import React from "react"
+
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
+import { FaReact, FaNodeJs, FaPython, FaDatabase } from "react-icons/fa"
+// import { SiAzure } from "react-icons/si"
 
 // Simplified version without 3D models that were causing errors
 const expertiseAreas = [
   {
     id: 1,
     name: "Web Development",
+    icon: FaReact,
     description: "Building responsive and interactive web applications with modern frameworks and technologies.",
     skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js"],
   },
   {
     id: 2,
     name: "Mobile Development",
+    icon: FaNodeJs,
     description: "Creating cross-platform mobile applications with React Native and native technologies.",
     skills: ["React Native", "Flutter", "iOS", "Android", "Firebase"],
   },
   {
     id: 3,
     name: "Machine Learning",
+    icon: FaPython,
     description: "Implementing intelligent systems using machine learning algorithms and neural networks.",
     skills: ["TensorFlow", "PyTorch", "Scikit-learn", "Computer Vision", "NLP"],
+  },
+  {
+    id: 4,
+    name: "Backend Development",
+    icon: FaDatabase,
+    description: "Designing and implementing scalable server-side applications and APIs.",
+    skills: ["Node.js", "Django", "Golang", "MySQL", "MongoDB"],
+  },
+  {
+    id: 5,
+    name: "Cloud Services",
+    // icon: SiAzure,
+    description: "Deploying and managing applications on cloud platforms with modern DevOps practices.",
+    skills: ["AWS", "Azure", "Docker", "Kubernetes", "CI/CD"],
   },
 ]
 
@@ -75,7 +96,7 @@ export default function ExpertiseSection() {
               <div className="w-32 h-32 mx-auto mb-6 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full opacity-20 animate-pulse"></div>
                 <div className="absolute inset-4 bg-slate-800 rounded-full flex items-center justify-center">
-                  <span className="text-5xl">{expertiseAreas[activeArea].name.charAt(0)}</span>
+                  {React.createElement(expertiseAreas[activeArea].icon ?? FaReact, { className: "w-16 h-16 text-indigo-400" })}
                 </div>
               </div>
               <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -121,7 +142,10 @@ export default function ExpertiseSection() {
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <h4 className="font-medium text-white">{area.name}</h4>
+                  <div className="flex items-center gap-3">
+                    {area.icon && React.createElement(area.icon, { className: "w-6 h-6 text-indigo-400" })}
+                    <h4 className="font-medium text-white">{area.name}</h4>
+                  </div>
                 </motion.button>
               ))}
             </div>

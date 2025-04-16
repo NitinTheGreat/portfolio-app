@@ -1,28 +1,38 @@
-"use client"
+"use client";
 
-import { forwardRef, useState, useRef, useEffect } from "react"
-import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import ProjectCard from "@/components/ProjectCard"
-import ProjectModal from "@/components/ProjectModal"
-import { projects, highlightedProjects } from "@/lib/data"
+import { forwardRef, useState, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import ProjectCard from "@/components/ProjectCard";
+import ProjectModal from "@/components/ProjectModal";
+import { projects, highlightedProjects } from "@/lib/data";
 
 const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
-  const [selectedProject, setSelectedProject] = useState<number | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const featuredRef = useRef<HTMLDivElement>(null)
-  const otherProjectsRef = useRef<HTMLDivElement>(null)
-  const [sectionHeight, setSectionHeight] = useState(0)
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const otherProjectsRef = useRef<HTMLDivElement>(null);
+  const [sectionHeight, setSectionHeight] = useState(0);
 
-  const isInView = useInView(containerRef, { once: false, amount: 0.1 })
-  const isFeaturedInView = useInView(featuredRef, { once: false, amount: 0.2, margin: "-100px 0px" })
-  const isOtherInView = useInView(otherProjectsRef, { once: false, amount: 0.2, margin: "-100px 0px" })
+  const isInView = useInView(containerRef, { once: false, amount: 0.1 });
+  const isFeaturedInView = useInView(featuredRef, {
+    once: false,
+    amount: 0.2,
+    margin: "-100px 0px",
+  });
+  const isOtherInView = useInView(otherProjectsRef, {
+    once: false,
+    amount: 0.2,
+    margin: "-100px 0px",
+  });
 
   // Calculate the height based on the number of other projects
   useEffect(() => {
     if (otherProjectsRef.current) {
       // Set the height to be enough for the horizontal scroll effect
       // This creates enough scrolling space for the animation to complete
-      const otherProjectsCount = projects.filter(p => !p.isHighlighted).length;
+      const otherProjectsCount = projects.filter(
+        (p) => !p.isHighlighted
+      ).length;
       setSectionHeight(window.innerHeight * 1.5);
     }
   }, []);
@@ -36,7 +46,7 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
   const x = useTransform(
     scrollYProgress,
     [0, 0.5, 1], // Input range (scroll progress)
-    ["100%", "50%", "0%"], // Output range (horizontal translation)
+    ["100%", "50%", "0%"] // Output range (horizontal translation)
   );
 
   const containerVariants = {
@@ -48,7 +58,7 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -61,7 +71,7 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
         damping: 20,
       },
     },
-  }
+  };
 
   return (
     <section ref={ref} id="projects" className="py-20 md:py-32 px-6">
@@ -94,7 +104,8 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            A showcase of my best work, featuring web applications, mobile apps, and more.
+            A showcase of my best work, featuring web applications, mobile apps,
+            and more.
           </motion.p>
         </motion.div>
 
@@ -131,9 +142,13 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
         </motion.h3>
 
         {/* Sticky Other Projects Section */}
-        <div ref={otherProjectsRef} style={{ height: `${sectionHeight}px` }} className="relative">
+        {/* <div
+          ref={otherProjectsRef}
+          style={{ height: `${sectionHeight}px` }}
+          className="relative"
+        >
           <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-            <motion.div 
+            <motion.div
               className="flex flex-nowrap gap-8 px-4 md:px-12 w-fit"
               style={{ x }}
               initial={{ opacity: 0 }}
@@ -151,7 +166,11 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
                     transition={{ delay: 0.1 * index, duration: 0.5 }}
                     whileHover={{
                       y: -20,
-                      transition: { type: "spring", stiffness: 300, damping: 20 },
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      },
                     }}
                     onClick={() => setSelectedProject(project.id)}
                   >
@@ -160,7 +179,7 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
                 ))}
             </motion.div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {selectedProject !== null && (
@@ -170,8 +189,8 @@ const ProjectsSection = forwardRef<HTMLElement>((props, ref) => {
         />
       )}
     </section>
-  )
-})
+  );
+});
 
-ProjectsSection.displayName = "ProjectsSection"
-export default ProjectsSection
+ProjectsSection.displayName = "ProjectsSection";
+export default ProjectsSection;

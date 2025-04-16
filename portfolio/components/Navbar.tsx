@@ -2,16 +2,17 @@
 
 import { useState, useEffect, type RefObject } from "react"
 import { motion, useScroll, useSpring } from "framer-motion"
-import { FaGithub, FaLinkedin } from "react-icons/fa"
-import { HiMenu, HiX } from "react-icons/hi"
+import { Menu, X, Github, Linkedin } from "lucide-react"
 
 interface NavbarProps {
-    heroRef: RefObject<HTMLElement | null>
-    projectsRef: RefObject<HTMLElement | null>
-    aboutRef: RefObject<HTMLElement | null>
-    contactRef: RefObject<HTMLElement | null>
-  }
-export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: NavbarProps) {
+  heroRef: RefObject<HTMLElement | null>
+  projectsRef: RefObject<HTMLElement | null>
+  aboutRef: RefObject<HTMLElement | null>
+  contactRef: RefObject<HTMLElement | null>
+  skillsRef: RefObject<HTMLElement | null>
+}
+
+export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef, skillsRef }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { scrollYProgress } = useScroll()
@@ -36,6 +37,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
   const navItems = [
     { name: "Home", ref: heroRef },
     { name: "Projects", ref: projectsRef },
+    { name: "Skills", ref: skillsRef },
     { name: "About", ref: aboutRef },
     { name: "Contact", ref: contactRef },
   ]
@@ -70,7 +72,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-            
+                // transition={{ delay: index * 0.1 }}
               >
                 {item.name}
               </motion.button>
@@ -93,7 +95,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.9 }}
           >
-            {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </motion.button>
         </div>
 
@@ -127,7 +129,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
               </motion.button>
             ))}
             <motion.a
-              href="/resume"
+              href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium"
@@ -147,7 +149,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <FaGithub className="w-6 h-6 text-white/80 hover:text-white" />
+              <Github className="w-6 h-6 text-white/80 hover:text-white" />
             </motion.a>
             <motion.a
               href="https://linkedin.com/in/nitinkrpandey"
@@ -156,7 +158,7 @@ export default function Navbar({ heroRef, projectsRef, aboutRef, contactRef }: N
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <FaLinkedin className="w-6 h-6 text-white/80 hover:text-white" />
+              <Linkedin className="w-6 h-6 text-white/80 hover:text-white" />
             </motion.a>
           </div>
         </motion.div>

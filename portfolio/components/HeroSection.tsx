@@ -297,7 +297,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
     <motion.section
       ref={ref}
       id="hero"
-      className="h-screen relative flex flex-col items-center justify-center overflow-hidden"
+      className="h-screen relative flex flex-col items-center justify-center overflow-hidden overflow-x-hidden"
       style={{ opacity }}
     >
       {/* Animated background elements */}

@@ -80,11 +80,11 @@ export default function RiveAnimation({
 
   return (
     <div ref={containerRef} className="w-full h-full">
-      {!isRiveLoaded && (
+      {/* {!isRiveLoaded && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
-      )}
+      )} */}
       <RiveCanvas/>
     </div>
   )

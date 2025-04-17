@@ -10,7 +10,9 @@ export default function ResumePage() {
   const [loadError, setLoadError] = useState(false)
 
   // PDF path - make sure this matches where your file is located in the public folder
-  const resumePath = "/static/resume.pdf"
+  const resumePath = "/static/Resume.pdf"
+  // using drive
+  // const resumePath= "https://pdflink.to/35ab1a91/"
 
   const handleIframeError = () => {
     setLoadError(true)

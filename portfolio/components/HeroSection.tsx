@@ -315,16 +315,7 @@ const HeroSection = forwardRef<HTMLElement>((props, ref) => {
           <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 rounded-full"></div>
         </motion.h1>
 
-        <motion.p
-          className="text-xl text-slate-300 max-w-2xl mx-auto mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          Roses are red, my screen is blue
-          <br />
-          <span className="hidden sm:inline"> Because I deleted, System32</span>
-        </motion.p>
+        
 
         <motion.div
           className="flex flex-wrap justify-center gap-3 mb-8"

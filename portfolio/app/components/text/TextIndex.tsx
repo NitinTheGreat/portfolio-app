@@ -10,7 +10,7 @@ function PlanetEntry({ planet }: { planet: Planet }) {
   return (
     <article
       id={planet.id}
-      className="border-t border-[#1A1613]/15 py-10 scroll-mt-24"
+      className="border-t border-[#E8E4DC]/12 py-10 scroll-mt-24"
       style={{ ["--accent" as string]: planet.accent }}
     >
       <header className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
@@ -18,7 +18,7 @@ function PlanetEntry({ planet }: { planet: Planet }) {
           {planet.name}
         </h3>
         {planet.caption ? (
-          <span className="font-mono text-xs uppercase tracking-widest text-[#1A1613]/60">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#E8E4DC]/55">
             {planet.caption}
           </span>
         ) : null}
@@ -30,20 +30,20 @@ function PlanetEntry({ planet }: { planet: Planet }) {
         </p>
       ) : null}
 
-      <p className="mt-4 text-xl sm:text-2xl text-[#1A1613]/90">{planet.oneLiner}</p>
+      <p className="mt-4 text-xl sm:text-2xl text-[#E8E4DC]/90">{planet.oneLiner}</p>
 
       {planet.metric ? (
-        <p className="mt-2 font-mono text-sm text-[#1A1613]/70">{planet.metric}</p>
+        <p className="mt-2 font-mono text-sm text-[#E8E4DC]/65">{planet.metric}</p>
       ) : null}
 
-      <p className="mt-4 max-w-2xl leading-relaxed text-[#1A1613]/80">{planet.summary}</p>
+      <p className="mt-4 max-w-2xl leading-relaxed text-[#E8E4DC]/75">{planet.summary}</p>
 
       {planet.chips.length ? (
         <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
           {planet.chips.map((chip) => (
             <li
               key={chip}
-              className="rounded-full border border-[color:var(--accent)]/40 px-3 py-1 font-mono text-xs text-[#1A1613]/70"
+              className="rounded-full border border-[color:var(--accent)]/45 px-3 py-1 font-mono text-xs text-[#E8E4DC]/70"
             >
               {chip}
             </li>
@@ -72,38 +72,39 @@ function PlanetEntry({ planet }: { planet: Planet }) {
 
 export function TextIndex() {
   return (
-    <main className="min-h-screen bg-[#F6EFE2] text-[#1A1613]">
+    <main className="min-h-screen bg-[#04070E] text-[#E8E4DC]">
       <a
         href="#projects"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[#1A1613] focus:px-4 focus:py-2 focus:text-[#F6EFE2]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[#E8E4DC] focus:px-4 focus:py-2 focus:text-[#0A0A0A]"
       >
         Skip to projects
       </a>
 
       <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
         <header>
-          <p className="font-mono text-xs uppercase tracking-widest text-[#B8724D]">
+          <p className="font-mono text-xs uppercase tracking-widest text-[#4A8FB8]">
             Portfolio · text index
           </p>
           <h1 className="mt-4 font-display text-5xl sm:text-7xl font-black leading-[0.95] tracking-tight">
             {profile.name}
           </h1>
-          <p className="mt-6 text-2xl text-[#1A1613]/90">{profile.pitch}</p>
-          <p className="mt-2 text-lg text-[#1A1613]/70">{profile.status}</p>
-          <p className="mt-4 max-w-2xl leading-relaxed text-[#1A1613]/75">
+          <p className="mt-6 text-2xl text-[#E8E4DC]/90">{profile.pitch}</p>
+          <p className="mt-2 text-lg text-[#E8E4DC]/65">{profile.status}</p>
+          <p className="mt-4 max-w-2xl leading-relaxed text-[#E8E4DC]/70">
             {profile.education}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={profile.cv}
-              className="rounded-full bg-[#1A1613] px-5 py-2.5 text-sm font-medium text-[#F6EFE2] hover:bg-[#B8724D]"
+              download
+              className="rounded-full bg-[#E8E4DC] px-5 py-2.5 text-sm font-medium text-[#0A0A0A] hover:bg-[#4A8FB8] hover:text-[#04070E]"
             >
               Download CV
             </a>
             <a
               href={`mailto:${profile.email}`}
-              className="rounded-full border border-[#1A1613]/25 px-5 py-2.5 text-sm font-medium hover:border-[#B8724D]"
+              className="rounded-full border border-[#E8E4DC]/25 px-5 py-2.5 text-sm font-medium hover:border-[#4A8FB8]"
             >
               Email
             </a>
@@ -111,7 +112,7 @@ export function TextIndex() {
               href={profile.github}
               target="_blank"
               rel="noreferrer noopener"
-              className="rounded-full border border-[#1A1613]/25 px-5 py-2.5 text-sm font-medium hover:border-[#B8724D]"
+              className="rounded-full border border-[#E8E4DC]/25 px-5 py-2.5 text-sm font-medium hover:border-[#4A8FB8]"
             >
               GitHub
             </a>
@@ -119,13 +120,13 @@ export function TextIndex() {
               href={profile.linkedin}
               target="_blank"
               rel="noreferrer noopener"
-              className="rounded-full border border-[#1A1613]/25 px-5 py-2.5 text-sm font-medium hover:border-[#B8724D]"
+              className="rounded-full border border-[#E8E4DC]/25 px-5 py-2.5 text-sm font-medium hover:border-[#4A8FB8]"
             >
               LinkedIn
             </a>
             <Link
               href="/"
-              className="rounded-full border border-[#1A1613]/25 px-5 py-2.5 text-sm font-medium hover:border-[#B8724D]"
+              className="rounded-full border border-[#E8E4DC]/25 px-5 py-2.5 text-sm font-medium hover:border-[#4A8FB8]"
             >
               Take the journey ↗
             </Link>
@@ -133,7 +134,7 @@ export function TextIndex() {
         </header>
 
         <section id="projects" className="mt-20 scroll-mt-24" aria-label="Projects">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-[#B8724D]">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-[#4A8FB8]">
             Six planets
           </h2>
           {journeyPlanets.map((planet) => (
@@ -142,19 +143,19 @@ export function TextIndex() {
         </section>
 
         <section className="mt-20" aria-label="Other work">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-[#B8724D]">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-[#4A8FB8]">
             Constellation of other work
           </h2>
           <ul className="mt-8 grid gap-6 sm:grid-cols-2">
             {constellation.map((body) => (
-              <li key={body.name} className="border-t border-[#1A1613]/15 pt-4">
+              <li key={body.name} className="border-t border-[#E8E4DC]/12 pt-4">
                 <h3 className="font-display text-2xl font-black tracking-tight">
                   {body.href ? (
                     <a
                       href={body.href}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="hover:text-[#B8724D]"
+                      className="hover:text-[#4A8FB8]"
                     >
                       {body.name}
                     </a>
@@ -162,8 +163,8 @@ export function TextIndex() {
                     body.name
                   )}
                 </h3>
-                <p className="mt-2 leading-relaxed text-[#1A1613]/80">{body.summary}</p>
-                <p className="mt-2 font-mono text-xs text-[#1A1613]/55">
+                <p className="mt-2 leading-relaxed text-[#E8E4DC]/75">{body.summary}</p>
+                <p className="mt-2 font-mono text-xs text-[#E8E4DC]/50">
                   {body.tech.join(" · ")}
                 </p>
               </li>
@@ -171,16 +172,16 @@ export function TextIndex() {
           </ul>
         </section>
 
-        <footer className="mt-24 border-t border-[#1A1613]/15 pt-10">
+        <footer className="mt-24 border-t border-[#E8E4DC]/12 pt-10">
           <h2 className="font-display text-3xl font-black tracking-tight">
             Let&apos;s build something.
           </h2>
-          <p className="mt-3 text-[#1A1613]/75">{profile.closer}</p>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-[#1A1613]/70">
-            <a href={`mailto:${profile.email}`} className="hover:text-[#B8724D]">
+          <p className="mt-3 text-[#E8E4DC]/70">{profile.closer}</p>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-[#E8E4DC]/65">
+            <a href={`mailto:${profile.email}`} className="hover:text-[#4A8FB8]">
               {profile.email}
             </a>
-            <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="hover:text-[#B8724D]">
+            <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="hover:text-[#4A8FB8]">
               {profile.phone}
             </a>
           </div>

@@ -5,32 +5,29 @@
   --font-body: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
 
-  --color-sky-dusk: #f2c89a;
-  --color-sky-noon: #8fb5c9;
-  --color-sky-deep: #2b3a55;
-  --color-terrain-moss: #4e7a5c;
-  --color-terrain-clay: #b8724d;
-  --color-paper: #f6efe2;
-  --color-ink: #1a1613;
+  --color-space-void: #04070e;
+  --color-space-mid: #0b1424;
+  --color-atmo-cyan: #4a8fb8;
+  --color-sun-warm: #ffd9a8;
+  --color-paper: #e8e4dc;
+  --color-ink: #0a0a0a;
+  --color-terminator: #1a1520;
 }
 
 :root {
-  --sky-dusk: #f2c89a;
-  --sky-noon: #8fb5c9;
-  --sky-deep: #2b3a55;
-  --terrain-moss: #4e7a5c;
-  --terrain-clay: #b8724d;
-  --paper: #f6efe2;
-  --ink: #1a1613;
-}
-
-html {
-  color-scheme: light;
+  --space-void: #04070e;
+  --space-mid: #0b1424;
+  --atmo-cyan: #4a8fb8;
+  --sun-warm: #ffd9a8;
+  --paper: #e8e4dc;
+  --ink: #0a0a0a;
+  --terminator-blend: #1a1520;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--space-void);
+  color: var(--paper);
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
@@ -40,13 +37,13 @@ body {
   }
 }
 
-.loader-crane {
-  stroke-dasharray: 420;
-  stroke-dashoffset: 420;
-  animation: crane-draw 1.8s ease-in-out infinite alternate;
+.loader-ellipse {
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  animation: ellipse-draw 2s ease-in-out forwards;
 }
 
-@keyframes crane-draw {
+@keyframes ellipse-draw {
   to {
     stroke-dashoffset: 0;
   }

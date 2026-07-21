@@ -7,7 +7,7 @@ import { AmbientClock } from "@/hooks/useAmbientClock"
 import { Sky } from "./Sky"
 import { Lighting } from "./Lighting"
 import { CameraRig } from "./CameraRig"
-import { HomePlanet } from "./planets/HomePlanet"
+import { Sun } from "./Sun"
 
 const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDebug), {
   ssr: false,
@@ -26,7 +26,7 @@ export function Scene({ debug = false }: { debug?: boolean }) {
       <Suspense fallback={null}>
         <Sky />
         <Lighting />
-        <HomePlanet />
+        <Sun />
         <CameraRig />
         <AmbientClock />
         {debug ? <SplineDebug /> : null}

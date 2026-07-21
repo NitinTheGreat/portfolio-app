@@ -9,6 +9,7 @@ import { Lighting } from "./Lighting"
 import { CameraRig } from "./CameraRig"
 import { Sun } from "./Sun"
 import { HeroForeground } from "./HeroForeground"
+import { PostFX } from "./PostFX"
 
 const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDebug), {
   ssr: false,
@@ -33,6 +34,7 @@ export function Scene({ debug = false }: { debug?: boolean }) {
         <AmbientClock />
         {debug ? <SplineDebug /> : null}
       </Suspense>
+      <PostFX />
     </Canvas>
   )
 }

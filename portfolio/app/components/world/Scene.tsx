@@ -22,6 +22,7 @@ export function Scene({ debug = false }: { debug?: boolean }) {
       gl={{ antialias: true, powerPreference: "high-performance" }}
       aria-label="Nitin Kumar Pandey's portfolio, a solar system you fly through"
     >
+      <color attach="background" args={["#04070E"]} />
       <Suspense fallback={null}>
         <Sky />
         <Lighting />

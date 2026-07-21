@@ -28,11 +28,15 @@ const fragmentShader = /* glsl */ `
     vec3 V = normalize(cameraPosition - vWorldPos);
     float fres = pow(1.0 - max(dot(N, V), 0.0), 3.0);
     float sun = dot(N, uSunDir);
-    float day = smoothstep(0.1, 0.6, sun);
-    vec3 col = mix(uNightColor, uTermColor, smoothstep(-0.25, 0.12, sun));
-    col = mix(col, uDayColor, day);
-    float alpha = fres * mix(0.15, 1.0, day) * uIntensity;
-    gl_FragColor = vec4(col, alpha);
+    float day = smoothstep(0.0, 0.3, sun);
+    vec3 col = mix(
+      mix(uNightColor, uTermColor, smoothstep(-0.2, 0.1, sun)),
+      uDayColor,
+      day
+    );
+    float term = exp(-sun * sun * 10.0);
+    float alpha = fres * (mix(0.12, 1.0, day) + term * 0.5) * uIntensity;
+    gl_FragColor = vec4(col, clamp(alpha, 0.0, 1.0));
   }
 `
 

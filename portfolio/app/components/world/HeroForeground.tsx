@@ -8,7 +8,7 @@ import { noise3d } from "./shaders/noise"
 import { SUN_POSITION } from "./Sun"
 import { Atmosphere } from "./Atmosphere"
 
-const POSITION: [number, number, number] = [0, -3, -12]
+const POSITION: [number, number, number] = [-2.5, -2, -8]
 const RADIUS = 6
 
 const surfaceVertex = /* glsl */ `

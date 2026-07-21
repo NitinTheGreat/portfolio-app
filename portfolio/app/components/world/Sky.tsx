@@ -4,6 +4,7 @@ import { useRef } from "react"
 import type { Group } from "three"
 import { useAmbientFrame } from "@/hooks/useAmbientClock"
 import { Starfield } from "./Starfield"
+import { MilkyWay } from "./MilkyWay"
 
 export function Sky() {
   const ref = useRef<Group>(null)
@@ -14,6 +15,7 @@ export function Sky() {
 
   return (
     <group ref={ref}>
+      <MilkyWay />
       <Starfield />
     </group>
   )

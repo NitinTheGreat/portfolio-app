@@ -31,6 +31,7 @@ export const planetSchema = z.object({
   accent: z.string(),
   palette: z.array(z.string()),
   links: z.array(linkSchema),
+  worldPosition: z.tuple([z.number(), z.number(), z.number()]),
 })
 
 export type Planet = z.infer<typeof planetSchema>
@@ -72,6 +73,7 @@ export const planets: Planet[] = [
     accent: "#E6A15E",
     palette: ["#F2C89A", "#B8724D", "#2B3A55"],
     links: [],
+    worldPosition: [0, 0, 0],
   },
   {
     id: "aeza",
@@ -89,6 +91,7 @@ export const planets: Planet[] = [
     accent: "#D8829E",
     palette: ["#D8829E", "#F6EFE2", "#C9A05B"],
     links: [],
+    worldPosition: [16, 4, -30],
   },
   {
     id: "iivy",
@@ -106,6 +109,7 @@ export const planets: Planet[] = [
     accent: "#5B7C99",
     palette: ["#5B7C99", "#B8A07A", "#7FD4E8"],
     links: [],
+    worldPosition: [-14, -3, -58],
   },
   {
     id: "donna",
@@ -123,6 +127,7 @@ export const planets: Planet[] = [
     accent: "#C25B4F",
     palette: ["#C25B4F", "#2B2545", "#E8A15E"],
     links: [],
+    worldPosition: [20, 8, -88],
   },
   {
     id: "drishti",
@@ -140,6 +145,7 @@ export const planets: Planet[] = [
     accent: "#E58B3B",
     palette: ["#E58B3B", "#8A93A8", "#3A4560"],
     links: [],
+    worldPosition: [-18, 1, -116],
   },
   {
     id: "conjunction-triage",
@@ -157,6 +163,7 @@ export const planets: Planet[] = [
     accent: "#3EA6B8",
     palette: ["#3EA6B8", "#0B0E14", "#C264A8"],
     links: [],
+    worldPosition: [6, -6, -146],
   },
   {
     id: "landing",
@@ -171,6 +178,7 @@ export const planets: Planet[] = [
     accent: "#E6A15E",
     palette: ["#F2C89A", "#4E7A5C", "#2B3A55"],
     links: [],
+    worldPosition: [-2, 3, -172],
   },
 ]
 

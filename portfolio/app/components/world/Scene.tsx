@@ -8,6 +8,7 @@ import { Sky } from "./Sky"
 import { Lighting } from "./Lighting"
 import { CameraRig } from "./CameraRig"
 import { Sun } from "./Sun"
+import { HeroForeground } from "./HeroForeground"
 
 const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDebug), {
   ssr: false,
@@ -18,7 +19,7 @@ export function Scene({ debug = false }: { debug?: boolean }) {
     <Canvas
       className="!fixed inset-0"
       dpr={[1, 1.5]}
-      camera={{ fov: 50, near: 0.1, far: 1000, position: [2, 3, 14] }}
+      camera={{ fov: 50, near: 0.1, far: 1000, position: [0, 0.5, 3] }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       aria-label="Nitin Kumar Pandey's portfolio, a solar system you fly through"
     >
@@ -27,6 +28,7 @@ export function Scene({ debug = false }: { debug?: boolean }) {
         <Sky />
         <Lighting />
         <Sun />
+        <HeroForeground />
         <CameraRig />
         <AmbientClock />
         {debug ? <SplineDebug /> : null}

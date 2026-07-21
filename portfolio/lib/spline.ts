@@ -2,7 +2,7 @@ import { CatmullRomCurve3, Vector3 } from "three"
 import { planets, type PlanetId } from "@/lib/planets"
 
 const cameraOffsets: Record<PlanetId, [number, number, number]> = {
-  home: [2, 3, 14],
+  home: [0, 0, 0],
   aeza: [6, 4, 14],
   iivy: [-5, 4, 14],
   donna: [7, 5, 14],

@@ -1,20 +1,18 @@
 import { TextIndex } from "@/app/components/text/TextIndex"
+import { JourneyExperience } from "@/app/components/JourneyExperience"
 
-type SearchParams = { text?: string }
+type SearchParams = { text?: string; debug?: string }
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<SearchParams>
 }) {
-  const { text } = await searchParams
-  const textOnly = text === "1"
+  const { text, debug } = await searchParams
 
-  // Milestone 2 swaps the default branch for the R3F journey experience.
-  // Until then the text index is the shippable baseline for every visitor.
-  if (textOnly) {
+  if (text === "1") {
     return <TextIndex />
   }
 
-  return <TextIndex />
+  return <JourneyExperience debug={debug === "1"} />
 }

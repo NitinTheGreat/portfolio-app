@@ -45,7 +45,8 @@ const coronaFragment = /* glsl */ `
   varying vec3 vNormal;
   varying vec3 vView;
   void main() {
-    float fresnelInverse = pow(1.0 - abs(dot(normalize(vNormal), normalize(vView))), 2.5);
+    float facing = abs(dot(normalize(vNormal), normalize(vView)));
+    float fresnelInverse = pow(max(1.0 - facing, 0.0), 2.5);
     vec3 coronaColour = mix(vec3(1.0, 0.7, 0.4), vec3(1.0, 0.9, 0.7), fresnelInverse);
     float alpha = fresnelInverse * 0.6;
     gl_FragColor = vec4(coronaColour, alpha);

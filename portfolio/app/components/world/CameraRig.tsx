@@ -13,7 +13,7 @@ const ZONE = 0.05
 const ORBIT_RADIUS = 9
 const ORBIT_SPAN = Math.PI * 0.66
 const BASE_ANGLE = 1.2
-const SNAP_INDICES = [1, 2, 3, 4, 5]
+const SNAP_INDICES = [1, 2, 3, 4, 5, 6]
 const LAST = planets.length - 1
 
 const UP = new Vector3(0, 1, 0)

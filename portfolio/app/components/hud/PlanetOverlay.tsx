@@ -11,7 +11,7 @@ export function PlanetOverlay() {
   const progress = usePortfolio((state) => state.scrollProgress)
   const index = planets.findIndex((p) => p.id === current)
   const planetT = index / last
-  const settled = Math.abs(progress - planetT) < 0.045
+  const settled = current !== "landing" && Math.abs(progress - planetT) < 0.045
   const planet = planetById[current]
 
   return (

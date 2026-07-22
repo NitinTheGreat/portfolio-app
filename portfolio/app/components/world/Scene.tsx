@@ -11,6 +11,7 @@ import { Sun } from "./Sun"
 import { HeroForeground } from "./HeroForeground"
 import { AezaPlanet } from "./planets/AezaPlanet"
 import { Constellation } from "./planets/Constellation"
+import { LandingModule } from "./planets/LandingModule"
 import { PostFX } from "./PostFX"
 
 const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDebug), {
@@ -49,6 +50,7 @@ export function Scene({
         <HeroForeground />
         <AezaPlanet />
         <Constellation forcedHover={hoverParam} />
+        <LandingModule />
         <CameraRig camTarget={camParam} tOverride={tParam} />
         <AmbientClock />
         {debug ? <SplineDebug /> : null}

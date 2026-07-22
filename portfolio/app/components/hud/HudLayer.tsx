@@ -6,6 +6,7 @@ import { SoundToggle } from "./SoundToggle"
 import { CoordinatesReadout } from "./CoordinatesReadout"
 import { PlanetOverlay } from "./PlanetOverlay"
 import { ConstellationOverlay } from "./ConstellationOverlay"
+import { LandingOverlay } from "./LandingOverlay"
 import { ModalRoot } from "./ModalRoot"
 
 export function HudLayer() {
@@ -13,6 +14,7 @@ export function HudLayer() {
     <div className="pointer-events-none fixed inset-0 z-20">
       <PlanetOverlay />
       <ConstellationOverlay />
+      <LandingOverlay />
       <MiniMap />
       <HudMenu />
       <SoundToggle />

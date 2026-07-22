@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useRef } from "react"
-import { Vector3, type ShaderMaterial } from "three"
+import { Object3D, Vector3, type InstancedMesh, type ShaderMaterial } from "three"
 import { useAmbientFrame } from "@/hooks/useAmbientClock"
 import { planetById } from "@/lib/planets"
 import { noise3d } from "../shaders/noise"
@@ -57,6 +57,47 @@ const fragmentShader = /* glsl */ `
   }
 `
 
+const RING_COUNT = 400
+
+function AezaRing() {
+  const ring = useRef<InstancedMesh>(null)
+  const dummy = useMemo(() => new Object3D(), [])
+  const particles = useMemo(
+    () =>
+      Array.from({ length: RING_COUNT }, (_, i) => ({
+        angle: (i / RING_COUNT) * Math.PI * 2,
+        radius: 3.6 + (Math.random() - 0.5) * 0.28,
+        height: (Math.random() - 0.5) * 0.16,
+        phase: Math.random() * Math.PI * 2,
+      })),
+    [],
+  )
+
+  useAmbientFrame((elapsed) => {
+    const mesh = ring.current
+    if (!mesh) return
+    for (let i = 0; i < RING_COUNT; i++) {
+      const p = particles[i]
+      const r = p.radius + Math.sin(elapsed * 0.5 + p.phase) * 0.04
+      dummy.position.set(
+        Math.cos(p.angle) * r,
+        p.height + Math.cos(elapsed * 0.4 + p.phase) * 0.03,
+        Math.sin(p.angle) * r,
+      )
+      dummy.updateMatrix()
+      mesh.setMatrixAt(i, dummy.matrix)
+    }
+    mesh.instanceMatrix.needsUpdate = true
+  })
+
+  return (
+    <instancedMesh ref={ring} args={[undefined, undefined, RING_COUNT]} rotation={[0.26, 0, 0.1]}>
+      <sphereGeometry args={[0.017, 6, 6]} />
+      <meshBasicMaterial color="#aecdd6" toneMapped={false} transparent opacity={0.85} />
+    </instancedMesh>
+  )
+}
+
 export function AezaPlanet() {
   const surface = useRef<ShaderMaterial>(null)
 
@@ -87,6 +128,7 @@ export function AezaPlanet() {
         terminatorColor="#f4c4d0"
         nightColor="#1a1a3a"
       />
+      <AezaRing />
     </group>
   )
 }

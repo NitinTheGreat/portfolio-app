@@ -1,7 +1,14 @@
 "use client"
 
 import { useMemo, useRef } from "react"
-import { Object3D, Vector3, type InstancedMesh, type ShaderMaterial } from "three"
+import {
+  DoubleSide,
+  Object3D,
+  Vector3,
+  type Group,
+  type InstancedMesh,
+  type ShaderMaterial,
+} from "three"
 import { useAmbientFrame } from "@/hooks/useAmbientClock"
 import { planetById } from "@/lib/planets"
 import { noise3d } from "../shaders/noise"
@@ -98,6 +105,46 @@ function AezaRing() {
   )
 }
 
+function AezaSatellite() {
+  const orbit = useRef<Group>(null)
+  const panels = useRef<Group>(null)
+  const sunWorld = useMemo(() => new Vector3(...SUN_POSITION), [])
+
+  useAmbientFrame((elapsed) => {
+    const o = orbit.current
+    if (o) {
+      const a = elapsed * 0.25
+      o.position.set(Math.cos(a) * 3.6, 0, Math.sin(a) * 3.6)
+    }
+    if (panels.current) panels.current.lookAt(sunWorld)
+  })
+
+  return (
+    <group rotation={[0.26, 0, 0.1]}>
+      <group ref={orbit}>
+        <mesh>
+          <boxGeometry args={[0.15, 0.15, 0.2]} />
+          <meshStandardMaterial color="#3a4a63" metalness={0.6} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.24, 0]}>
+          <cylinderGeometry args={[0.006, 0.006, 0.3, 6]} />
+          <meshStandardMaterial color="#c8ccd2" metalness={0.4} roughness={0.5} />
+        </mesh>
+        <group ref={panels}>
+          <mesh position={[-0.32, 0, 0]}>
+            <planeGeometry args={[0.42, 0.2]} />
+            <meshStandardMaterial color="#1a2340" metalness={0.1} roughness={0.65} side={DoubleSide} />
+          </mesh>
+          <mesh position={[0.32, 0, 0]}>
+            <planeGeometry args={[0.42, 0.2]} />
+            <meshStandardMaterial color="#1a2340" metalness={0.1} roughness={0.65} side={DoubleSide} />
+          </mesh>
+        </group>
+      </group>
+    </group>
+  )
+}
+
 export function AezaPlanet() {
   const surface = useRef<ShaderMaterial>(null)
 
@@ -129,6 +176,7 @@ export function AezaPlanet() {
         nightColor="#1a1a3a"
       />
       <AezaRing />
+      <AezaSatellite />
     </group>
   )
 }

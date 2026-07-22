@@ -40,13 +40,15 @@ export function MilkyWay() {
     return () => tween.kill()
   }, [texture])
 
+  if (!texture) return null
+
   return (
-    <mesh frustumCulled={false} rotation={[0.35, 0.6, 0.4]}>
+    <mesh frustumCulled={false} rotation={[0.15, 1.3, 0.4]}>
       <sphereGeometry args={[480, 64, 32]} />
       <meshBasicMaterial
         ref={material}
-        map={texture ?? undefined}
-        color="#4a4e58"
+        map={texture}
+        color="#5a5c60"
         side={BackSide}
         transparent
         opacity={0}

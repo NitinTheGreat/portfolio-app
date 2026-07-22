@@ -10,6 +10,7 @@ import { CameraRig } from "./CameraRig"
 import { Sun } from "./Sun"
 import { HeroForeground } from "./HeroForeground"
 import { AezaPlanet } from "./planets/AezaPlanet"
+import { IivyPlanet } from "./planets/IivyPlanet"
 import { Constellation } from "./planets/Constellation"
 import { LandingModule } from "./planets/LandingModule"
 import { PostFX } from "./PostFX"
@@ -49,6 +50,7 @@ export function Scene({
         <Sun />
         <HeroForeground />
         <AezaPlanet />
+        <IivyPlanet />
         <Constellation forcedHover={hoverParam} />
         <LandingModule />
         <CameraRig camTarget={camParam} tOverride={tParam} />

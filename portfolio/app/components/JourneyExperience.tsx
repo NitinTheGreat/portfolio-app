@@ -6,6 +6,7 @@ import { useQualityTier } from "@/hooks/useQualityTier"
 import { usePortfolio } from "@/store/portfolio"
 import { ScrollDriver } from "./world/ScrollDriver"
 import { LoaderScene } from "./world/LoaderScene"
+import { HudLayer } from "./hud/HudLayer"
 
 const Scene = dynamic(() => import("./world/Scene").then((m) => m.Scene), {
   ssr: false,
@@ -58,6 +59,7 @@ export function JourneyExperience({
   return (
     <>
       <Scene debug={debug} bloomParam={bloomParam} camParam={camParam} />
+      <HudLayer />
       <ScrollDriver />
       <div id="journey-scroll" aria-hidden className="pointer-events-none h-[700vh]" />
       {debug ? <DebugReadout /> : null}

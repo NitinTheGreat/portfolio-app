@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { usePortfolio } from "@/store/portfolio"
+import { planets } from "@/lib/planets"
 
 export function ScrollDriver() {
   useEffect(() => {
@@ -23,13 +24,18 @@ export function ScrollDriver() {
       gsap.ticker.add(tick)
       gsap.ticker.lagSmoothing(0)
 
-      const setScrollProgress = usePortfolio.getState().setScrollProgress
+      const store = usePortfolio.getState()
+      const lastIndex = planets.length - 1
       const trigger = ScrollTrigger.create({
         trigger: "#journey-scroll",
         start: "top top",
         end: "bottom bottom",
         scrub: 1,
-        onUpdate: (self) => setScrollProgress(self.progress),
+        onUpdate: (self) => {
+          store.setScrollProgress(self.progress)
+          const id = planets[Math.round(self.progress * lastIndex)].id
+          if (usePortfolio.getState().currentPlanet !== id) usePortfolio.getState().setPlanet(id)
+        },
       })
 
       ScrollTrigger.refresh()

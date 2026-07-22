@@ -55,6 +55,8 @@ export function JourneyExperience({
   useEffect(() => {
     if (modalParam === "cv" || modalParam === "contact") {
       usePortfolio.getState().openModal(modalParam)
+    } else if (modalParam?.startsWith("project:")) {
+      usePortfolio.getState().openModal("project", modalParam.slice("project:".length))
     }
   }, [modalParam])
 

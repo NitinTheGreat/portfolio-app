@@ -45,6 +45,7 @@ export const constellationBodySchema = z.object({
   code: z.string().optional(),
   live: z.string().optional(),
   tint: z.string(),
+  images: z.array(z.string()).optional(),
   worldPosition: z.tuple([z.number(), z.number(), z.number()]),
 })
 

@@ -9,6 +9,9 @@ const ResumeModal = dynamic(() => import("./ResumeModal").then((m) => m.ResumeMo
 const ContactModal = dynamic(() => import("./ContactModal").then((m) => m.ContactModal), {
   ssr: false,
 })
+const ProjectModal = dynamic(() => import("./ProjectModal").then((m) => m.ProjectModal), {
+  ssr: false,
+})
 
 export function ModalRoot() {
   const active = usePortfolio((state) => state.activeModal)
@@ -17,6 +20,7 @@ export function ModalRoot() {
     <>
       {active === "cv" ? <ResumeModal /> : null}
       {active === "contact" ? <ContactModal /> : null}
+      {active === "project" ? <ProjectModal /> : null}
     </>
   )
 }

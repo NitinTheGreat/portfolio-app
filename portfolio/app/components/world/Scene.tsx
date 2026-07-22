@@ -20,10 +20,12 @@ export function Scene({
   debug = false,
   bloomParam,
   camParam,
+  tParam,
 }: {
   debug?: boolean
   bloomParam?: string
   camParam?: string
+  tParam?: number
 }) {
   return (
     <Canvas
@@ -43,7 +45,7 @@ export function Scene({
         <Sun />
         <HeroForeground />
         <AezaPlanet />
-        <CameraRig camTarget={camParam} />
+        <CameraRig camTarget={camParam} tOverride={tParam} />
         <AmbientClock />
         {debug ? <SplineDebug /> : null}
       </Suspense>

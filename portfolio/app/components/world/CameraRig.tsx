@@ -6,16 +6,33 @@ import { Vector3 } from "three"
 import { useAmbientFrame } from "@/hooks/useAmbientClock"
 import { usePortfolio } from "@/store/portfolio"
 import { cameraPositionAt, cameraLookAtAt } from "@/lib/spline"
-import { planetById, type PlanetId } from "@/lib/planets"
+import { planets, planetById, type PlanetId } from "@/lib/planets"
 
 const INITIAL_DIR = new Vector3(1, 0.2, -3).normalize()
+const ZONE = 0.05
+const ORBIT_RADIUS = 9
+const ORBIT_SPAN = Math.PI * 0.66
+const BASE_ANGLE = 1.2
+const SNAP_INDICES = [1, 2, 3, 4, 5]
+const LAST = planets.length - 1
 
-export function CameraRig({ camTarget }: { camTarget?: string }) {
+const UP = new Vector3(0, 1, 0)
+const smoothstep = (e: number) => e * e * (3 - 2 * e)
+
+export function CameraRig({ camTarget, tOverride }: { camTarget?: string; tOverride?: number }) {
   const camera = useThree((state) => state.camera)
-  const position = useMemo(() => new Vector3(), [])
-  const lookPoint = useMemo(() => new Vector3(), [])
-  const tangentDir = useMemo(() => new Vector3(), [])
+  const splinePos = useMemo(() => new Vector3(), [])
+  const ahead = useMemo(() => new Vector3(), [])
+  const tangent = useMemo(() => new Vector3(), [])
   const dir = useMemo(() => new Vector3(), [])
+  const splineLook = useMemo(() => new Vector3(), [])
+  const orbitPos = useMemo(() => new Vector3(), [])
+  const planetPos = useMemo(() => new Vector3(), [])
+  const finalPos = useMemo(() => new Vector3(), [])
+  const finalLook = useMemo(() => new Vector3(), [])
+  const forward = useMemo(() => new Vector3(), [])
+  const right = useMemo(() => new Vector3(), [])
+  const up = useMemo(() => new Vector3(), [])
 
   useAmbientFrame(() => {
     if (camTarget && planetById[camTarget as PlanetId]) {
@@ -25,17 +42,51 @@ export function CameraRig({ camTarget }: { camTarget?: string }) {
       return
     }
 
-    const t = usePortfolio.getState().scrollProgress
-    cameraPositionAt(t, position)
-    camera.position.copy(position)
+    const t = tOverride ?? usePortfolio.getState().scrollProgress
 
-    cameraLookAtAt(t, lookPoint)
-    tangentDir.copy(lookPoint).sub(position).normalize()
+    cameraPositionAt(t, splinePos)
+    cameraLookAtAt(t, ahead)
+    tangent.copy(ahead).sub(splinePos).normalize()
+    const heroBlend = Math.min(Math.max(t / 0.1, 0), 1)
+    dir.copy(INITIAL_DIR).lerp(tangent, heroBlend).normalize()
+    splineLook.copy(splinePos).add(dir)
 
-    const blend = Math.min(Math.max(t / 0.1, 0), 1)
-    dir.copy(INITIAL_DIR).lerp(tangentDir, blend).normalize()
-    lookPoint.copy(position).add(dir)
-    camera.lookAt(lookPoint)
+    let snapBlend = 0
+    for (const i of SNAP_INDICES) {
+      const pt = i / LAST
+      const d = Math.abs(t - pt)
+      if (d < ZONE) {
+        snapBlend = 1 - smoothstep(d / ZONE)
+        planetPos.set(...planets[i].worldPosition)
+        const angle = BASE_ANGLE + ((t - pt) / ZONE) * (ORBIT_SPAN / 2)
+        orbitPos.set(
+          planetPos.x + Math.cos(angle) * ORBIT_RADIUS,
+          planetPos.y + 2.5,
+          planetPos.z + Math.sin(angle) * ORBIT_RADIUS,
+        )
+        break
+      }
+    }
+
+    if (snapBlend > 0) {
+      finalPos.copy(splinePos).lerp(orbitPos, snapBlend)
+      finalLook.copy(splineLook).lerp(planetPos, snapBlend)
+      forward.copy(finalLook).sub(finalPos)
+      right.copy(forward).cross(UP).normalize()
+      finalLook.addScaledVector(right, 1.8 * snapBlend)
+    } else {
+      finalPos.copy(splinePos)
+      finalLook.copy(splineLook)
+    }
+
+    const cursor = usePortfolio.getState().cursor
+    forward.copy(finalLook).sub(finalPos)
+    right.copy(forward).cross(UP).normalize()
+    up.copy(right).cross(forward).normalize()
+    finalLook.addScaledVector(right, cursor.x * 0.25).addScaledVector(up, cursor.y * 0.25)
+
+    camera.position.copy(finalPos)
+    camera.lookAt(finalLook)
   })
 
   return null

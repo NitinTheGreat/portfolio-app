@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
 import { useQualityTier } from "@/hooks/useQualityTier"
 import { usePortfolio } from "@/store/portfolio"
+import { planets } from "@/lib/planets"
 import { ScrollDriver } from "./world/ScrollDriver"
 import { LoaderScene } from "./world/LoaderScene"
 import { HudLayer } from "./hud/HudLayer"
@@ -38,12 +39,22 @@ export function JourneyExperience({
   debug = false,
   bloomParam,
   camParam,
+  tParam,
 }: {
   debug?: boolean
   bloomParam?: string
   camParam?: string
+  tParam?: number
 }) {
   useQualityTier()
+
+  useEffect(() => {
+    if (tParam === undefined) return
+    const store = usePortfolio.getState()
+    store.setScrollProgress(tParam)
+    const id = planets[Math.round(tParam * (planets.length - 1))].id
+    store.setPlanet(id)
+  }, [tParam])
 
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
@@ -58,9 +69,9 @@ export function JourneyExperience({
 
   return (
     <>
-      <Scene debug={debug} bloomParam={bloomParam} camParam={camParam} />
+      <Scene debug={debug} bloomParam={bloomParam} camParam={camParam} tParam={tParam} />
       <HudLayer />
-      <ScrollDriver />
+      {tParam === undefined ? <ScrollDriver /> : null}
       <div id="journey-scroll" aria-hidden className="pointer-events-none h-[700vh]" />
       {debug ? <DebugReadout /> : null}
     </>

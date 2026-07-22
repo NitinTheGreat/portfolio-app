@@ -1,6 +1,7 @@
 "use client"
 
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
+import { KernelSize } from "postprocessing"
 import { usePortfolio } from "@/store/portfolio"
 
 export function PostFX({ bloomParam }: { bloomParam?: string }) {
@@ -10,7 +11,12 @@ export function PostFX({ bloomParam }: { bloomParam?: string }) {
 
   return (
     <EffectComposer disableNormalPass>
-      <Bloom luminanceThreshold={0.85} intensity={1.5} radius={1.2} mipmapBlur />
+      <Bloom
+        luminanceThreshold={0.85}
+        intensity={1.1}
+        kernelSize={KernelSize.HUGE}
+        mipmapBlur={false}
+      />
     </EffectComposer>
   )
 }

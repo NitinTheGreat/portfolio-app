@@ -15,7 +15,7 @@ const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDe
   ssr: false,
 })
 
-export function Scene({ debug = false }: { debug?: boolean }) {
+export function Scene({ debug = false, forceBloom = false }: { debug?: boolean; forceBloom?: boolean }) {
   return (
     <Canvas
       className="!fixed inset-0"
@@ -34,7 +34,7 @@ export function Scene({ debug = false }: { debug?: boolean }) {
         <AmbientClock />
         {debug ? <SplineDebug /> : null}
       </Suspense>
-      <PostFX />
+      <PostFX force={forceBloom} />
     </Canvas>
   )
 }

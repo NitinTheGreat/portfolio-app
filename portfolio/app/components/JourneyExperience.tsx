@@ -33,12 +33,18 @@ function DebugReadout() {
   )
 }
 
-export function JourneyExperience({ debug = false }: { debug?: boolean }) {
+export function JourneyExperience({
+  debug = false,
+  forceBloom = false,
+}: {
+  debug?: boolean
+  forceBloom?: boolean
+}) {
   useQualityTier()
 
   return (
     <>
-      <Scene debug={debug} />
+      <Scene debug={debug} forceBloom={forceBloom} />
       <ScrollDriver />
       <div id="journey-scroll" aria-hidden className="pointer-events-none h-[700vh]" />
       {debug ? <DebugReadout /> : null}

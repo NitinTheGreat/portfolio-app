@@ -38,9 +38,14 @@ export type Planet = z.infer<typeof planetSchema>
 
 export const constellationBodySchema = z.object({
   name: z.string(),
+  slug: z.string(),
+  oneLiner: z.string(),
   summary: z.string(),
   tech: z.array(z.string()),
-  href: z.string().optional(),
+  code: z.string().optional(),
+  live: z.string().optional(),
+  tint: z.string(),
+  worldPosition: z.tuple([z.number(), z.number(), z.number()]),
 })
 
 export type ConstellationBody = z.infer<typeof constellationBodySchema>
@@ -187,34 +192,67 @@ export const journeyPlanets = planets.filter(
 export const constellation: ConstellationBody[] = [
   {
     name: "DealHarbor",
-    summary: "Campus marketplace with a 20-entity normalised schema and real-time updates.",
+    slug: "dealharbor",
+    oneLiner: "Campus marketplace. Twenty-entity schema, real-time WebSocket.",
+    summary:
+      "A campus marketplace on a twenty-entity normalised schema, with real-time updates over WebSocket, backed by Spring Boot and PostgreSQL with Redis caching.",
     tech: ["Next.js", "Spring Boot", "PostgreSQL", "Redis", "WebSocket"],
-    href: "https://github.com/NitinTheGreat/deal-harbor",
+    code: "https://github.com/NitinTheGreat/Deal-Harbor",
+    tint: "#5b8c9e",
+    worldPosition: [4, -2, -150],
   },
   {
     name: "HeatAgent",
-    summary: "Agentic framework for urban heat island prediction. Targeting IEEE ISC2 2026.",
-    tech: ["LangGraph", "FastAPI"],
+    slug: "heatagent",
+    oneLiner: "LangGraph agentic framework for urban heat island prediction. IEEE ISC2 2026 target.",
+    summary:
+      "An agentic framework for urban heat island prediction over satellite and geospatial data, targeting IEEE ISC2 2026.",
+    tech: ["LangGraph", "Python", "Satellite data", "Geospatial ML"],
+    tint: "#c07a4a",
+    worldPosition: [-5, 3, -154],
   },
   {
     name: "SemStream",
-    summary: "Content-aware, semantic, modality-adaptive streaming for lecture video.",
-    tech: ["BITE314L"],
+    slug: "semstream",
+    oneLiner: "Content-aware semantic modality-adaptive streaming for lecture video.",
+    summary:
+      "Content-aware, semantic, modality-adaptive streaming for lecture video: segmenting content and adapting bitrate to what is on screen.",
+    tech: ["Video processing", "Semantic segmentation", "Adaptive bitrate"],
+    tint: "#7a6ca8",
+    worldPosition: [7, 4, -158],
   },
   {
     name: "PlugFit",
-    summary: "OpenAPI-to-MCP server generator with quality optimisation.",
-    tech: ["MCP", "OpenAPI"],
+    slug: "plugfit",
+    oneLiner: "OpenAPI to MCP server generator with quality optimisation.",
+    summary:
+      "A generator that turns an OpenAPI spec into an MCP server, with a quality-optimisation pass over the generated tools.",
+    tech: ["TypeScript", "MCP", "OpenAPI", "LangGraph"],
+    tint: "#4e8a72",
+    worldPosition: [-4, -4, -161],
   },
   {
     name: "Riviera '25",
-    summary: "GDSC VIT fest site. 1.6M page views, zero downtime.",
-    tech: ["Next.js", "SSR"],
-    href: "https://riviera.vit.ac.in",
+    slug: "riviera-25",
+    oneLiner: "GDSC VIT fest infrastructure. 1.6M page views, zero downtime.",
+    summary:
+      "The infrastructure behind the Riviera '25 fest site: 1.6 million page views at zero downtime, on Next.js and Vercel with a distributed cache.",
+    tech: ["Next.js", "Vercel", "Distributed cache"],
+    tint: "#b06a86",
+    worldPosition: [3, 5, -165],
   },
   {
     name: "Gravitas '25",
-    summary: "GDSC VIT fest platform. 3M+ real-time interactions at peak.",
-    tech: ["Next.js", "WebSocket"],
+    slug: "gravitas-25",
+    oneLiner: "GDSC VIT fest platform. 3M+ real-time interactions at peak.",
+    summary:
+      "The Gravitas '25 fest platform: over 3 million real-time interactions at peak, on Next.js with WebSocket and Redis.",
+    tech: ["Next.js", "WebSocket", "Redis", "Real-time systems"],
+    tint: "#c9a24a",
+    worldPosition: [-6, 0, -168],
   },
 ]
+
+export const constellationBySlug = Object.fromEntries(
+  constellation.map((body) => [body.slug, body]),
+) as Record<string, ConstellationBody>

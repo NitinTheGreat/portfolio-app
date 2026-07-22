@@ -150,9 +150,9 @@ export function TextIndex() {
             {constellation.map((body) => (
               <li key={body.name} className="border-t border-[#E8E4DC]/12 pt-4">
                 <h3 className="font-display text-2xl font-black tracking-tight">
-                  {body.href ? (
+                  {body.code ? (
                     <a
-                      href={body.href}
+                      href={body.code}
                       target="_blank"
                       rel="noreferrer noopener"
                       className="hover:text-[#4A8FB8]"

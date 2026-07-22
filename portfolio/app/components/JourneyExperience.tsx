@@ -41,12 +41,14 @@ export function JourneyExperience({
   camParam,
   tParam,
   modalParam,
+  hoverParam,
 }: {
   debug?: boolean
   bloomParam?: string
   camParam?: string
   tParam?: number
   modalParam?: string
+  hoverParam?: string
 }) {
   useQualityTier()
 
@@ -77,7 +79,13 @@ export function JourneyExperience({
 
   return (
     <>
-      <Scene debug={debug} bloomParam={bloomParam} camParam={camParam} tParam={tParam} />
+      <Scene
+        debug={debug}
+        bloomParam={bloomParam}
+        camParam={camParam}
+        tParam={tParam}
+        hoverParam={hoverParam}
+      />
       <HudLayer />
       {tParam === undefined ? <ScrollDriver /> : null}
       <div id="journey-scroll" aria-hidden className="pointer-events-none h-[700vh]" />

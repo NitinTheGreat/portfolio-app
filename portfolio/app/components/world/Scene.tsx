@@ -10,6 +10,7 @@ import { CameraRig } from "./CameraRig"
 import { Sun } from "./Sun"
 import { HeroForeground } from "./HeroForeground"
 import { AezaPlanet } from "./planets/AezaPlanet"
+import { Constellation } from "./planets/Constellation"
 import { PostFX } from "./PostFX"
 
 const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDebug), {
@@ -21,11 +22,13 @@ export function Scene({
   bloomParam,
   camParam,
   tParam,
+  hoverParam,
 }: {
   debug?: boolean
   bloomParam?: string
   camParam?: string
   tParam?: number
+  hoverParam?: string
 }) {
   return (
     <Canvas
@@ -45,6 +48,7 @@ export function Scene({
         <Sun />
         <HeroForeground />
         <AezaPlanet />
+        <Constellation forcedHover={hoverParam} />
         <CameraRig camTarget={camParam} tOverride={tParam} />
         <AmbientClock />
         {debug ? <SplineDebug /> : null}

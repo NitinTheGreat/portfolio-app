@@ -8,6 +8,7 @@ type SearchParams = {
   cam?: string
   t?: string
   modal?: string
+  hover?: string
 }
 
 export default async function Home({
@@ -15,7 +16,7 @@ export default async function Home({
 }: {
   searchParams: Promise<SearchParams>
 }) {
-  const { text, debug, bloom, cam, t, modal } = await searchParams
+  const { text, debug, bloom, cam, t, modal, hover } = await searchParams
 
   if (text === "1") {
     return <TextIndex />
@@ -30,6 +31,7 @@ export default async function Home({
       camParam={cam}
       tParam={tParsed}
       modalParam={modal}
+      hoverParam={hover}
     />
   )
 }

@@ -40,13 +40,21 @@ export function JourneyExperience({
   bloomParam,
   camParam,
   tParam,
+  modalParam,
 }: {
   debug?: boolean
   bloomParam?: string
   camParam?: string
   tParam?: number
+  modalParam?: string
 }) {
   useQualityTier()
+
+  useEffect(() => {
+    if (modalParam === "cv" || modalParam === "contact") {
+      usePortfolio.getState().openModal(modalParam)
+    }
+  }, [modalParam])
 
   useEffect(() => {
     if (tParam === undefined) return

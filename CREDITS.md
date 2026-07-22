@@ -3,18 +3,21 @@
 Every external asset used on this site is public domain or CC0. Sources are
 listed here before use, per the project's asset policy.
 
+## Milky Way panorama
+
+ESO/S. Brunier — https://www.eso.org/public/images/eso0932a/
+Licensed CC BY 4.0.
+Downsampled to 4096x2048 and recompressed to JPG (~750KB), stored at
+`portfolio/public/textures/milky-way.jpg`.
+
 ## Current state
 
-The 3D scene is fully procedural at this stage. No external image, texture,
-model, or audio asset has been bundled yet.
+Aside from the Milky Way panorama above, the 3D scene is procedural.
 
 - Starfield: generated in-shader (spherical Fibonacci distribution, per-star
   colour and magnitude from a position hash). No texture.
-- Milky Way band: procedural noise band shader. This is the specced fallback
-  for the ESA/Gaia or NASA/Goddard all-sky panorama, used because there is no
-  KTX2 compression toolchain in the build environment. Intended upgrade below.
-- Hero foreground planet and Aeza: procedural surface, atmosphere, and cloud
-  shaders. Specced fallback for NASA Blue Marble textures.
+- Sun, hero foreground planet and Aeza: procedural surface, atmosphere, and
+  cloud shaders. Specced fallback for NASA Blue Marble textures.
 
 ## Intended texture and model upgrades (not yet bundled)
 

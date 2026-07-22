@@ -13,6 +13,7 @@ const ZONE = 0.05
 const ORBIT_RADIUS = 9
 const ORBIT_SPAN = Math.PI * 0.66
 const BASE_ANGLE = 1.2
+const SNAP_ANGLES: Record<number, number> = { 3: 1.2 + Math.PI }
 const SNAP_INDICES = [1, 2, 3, 4, 5, 6]
 const LAST = planets.length - 1
 
@@ -58,7 +59,7 @@ export function CameraRig({ camTarget, tOverride }: { camTarget?: string; tOverr
       if (d < ZONE) {
         snapBlend = 1 - smoothstep(d / ZONE)
         planetPos.set(...planets[i].worldPosition)
-        const angle = BASE_ANGLE + ((t - pt) / ZONE) * (ORBIT_SPAN / 2)
+        const angle = (SNAP_ANGLES[i] ?? BASE_ANGLE) + ((t - pt) / ZONE) * (ORBIT_SPAN / 2)
         orbitPos.set(
           planetPos.x + Math.cos(angle) * ORBIT_RADIUS,
           planetPos.y + 2.5,

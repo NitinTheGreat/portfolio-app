@@ -149,24 +149,35 @@ export function TextIndex() {
           <ul className="mt-8 grid gap-6 sm:grid-cols-2">
             {constellation.map((body) => (
               <li key={body.name} className="border-t border-[#E8E4DC]/12 pt-4">
-                <h3 className="font-display text-2xl font-black tracking-tight">
-                  {body.code ? (
-                    <a
-                      href={body.code}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="hover:text-[#4A8FB8]"
-                    >
-                      {body.name}
-                    </a>
-                  ) : (
-                    body.name
-                  )}
-                </h3>
+                <h3 className="font-display text-2xl font-black tracking-tight">{body.name}</h3>
                 <p className="mt-2 leading-relaxed text-[#E8E4DC]/75">{body.summary}</p>
                 <p className="mt-2 font-mono text-xs text-[#E8E4DC]/50">
                   {body.tech.join(" · ")}
                 </p>
+                {body.live || body.code ? (
+                  <div className="mt-3 flex gap-4 font-mono text-sm">
+                    {body.live ? (
+                      <a
+                        href={body.live}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="underline underline-offset-4 hover:text-[#4A8FB8]"
+                      >
+                        Live ↗
+                      </a>
+                    ) : null}
+                    {body.code ? (
+                      <a
+                        href={body.code}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="underline underline-offset-4 hover:text-[#4A8FB8]"
+                      >
+                        Code ↗
+                      </a>
+                    ) : null}
+                  </div>
+                ) : null}
               </li>
             ))}
           </ul>

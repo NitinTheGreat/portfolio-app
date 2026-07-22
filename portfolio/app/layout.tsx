@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Nitin Kumar Pandey | Forward deployed engineer",
     description:
-      "A hand-illustrated solar system of AI engineering work: Aeza, LoadMinds, BuildSmartr, published research and agentic AI for space.",
+      "A solar system of AI engineering work: Aeza, LoadMinds, BuildSmartr, published research and agentic AI for space.",
     url: siteUrl,
     siteName: profile.name,
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nitin Kumar Pandey | Forward deployed engineer",
     description:
-      "A hand-illustrated solar system of AI engineering work across fashion, logistics, construction, safety and space.",
+      "A solar system of AI engineering work across fashion, logistics, construction, safety and space.",
   },
 }
 

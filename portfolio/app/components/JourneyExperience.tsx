@@ -44,6 +44,17 @@ export function JourneyExperience({
 }) {
   useQualityTier()
 
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      usePortfolio.getState().setCursor({
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      })
+    }
+    window.addEventListener("pointermove", onMove)
+    return () => window.removeEventListener("pointermove", onMove)
+  }, [])
+
   return (
     <>
       <Scene debug={debug} bloomParam={bloomParam} camParam={camParam} />

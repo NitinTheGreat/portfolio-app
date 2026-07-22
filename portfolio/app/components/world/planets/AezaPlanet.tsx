@@ -1,6 +1,8 @@
 "use client"
 
-import { useMemo, useRef } from "react"
+import { useMemo, useRef, useState } from "react"
+import { useThree } from "@react-three/fiber"
+import { Line } from "@react-three/drei"
 import {
   DoubleSide,
   Object3D,
@@ -9,7 +11,9 @@ import {
   type InstancedMesh,
   type ShaderMaterial,
 } from "three"
+import type { Line2 } from "three-stdlib"
 import { useAmbientFrame } from "@/hooks/useAmbientClock"
+import { usePortfolio } from "@/store/portfolio"
 import { planetById } from "@/lib/planets"
 import { noise3d } from "../shaders/noise"
 import { SUN_POSITION } from "../Sun"
@@ -108,7 +112,13 @@ function AezaRing() {
 function AezaSatellite() {
   const orbit = useRef<Group>(null)
   const panels = useRef<Group>(null)
+  const beacon = useRef<Line2>(null)
+  const [hovered, setHovered] = useState(false)
+  const camera = useThree((state) => state.camera)
   const sunWorld = useMemo(() => new Vector3(...SUN_POSITION), [])
+  const satWorld = useMemo(() => new Vector3(), [])
+  const cursorWorld = useMemo(() => new Vector3(), [])
+  const ray = useMemo(() => new Vector3(), [])
 
   useAmbientFrame((elapsed) => {
     const o = orbit.current
@@ -117,12 +127,33 @@ function AezaSatellite() {
       o.position.set(Math.cos(a) * 3.6, 0, Math.sin(a) * 3.6)
     }
     if (panels.current) panels.current.lookAt(sunWorld)
+
+    if (hovered && beacon.current && o) {
+      o.getWorldPosition(satWorld)
+      const cursor = usePortfolio.getState().cursor
+      ray.set(cursor.x, cursor.y, 0.5).unproject(camera).sub(camera.position).normalize()
+      cursorWorld.copy(camera.position).addScaledVector(ray, camera.position.distanceTo(satWorld))
+      const parent = beacon.current.parent
+      if (parent) {
+        const p0 = parent.worldToLocal(satWorld.clone())
+        const p1 = parent.worldToLocal(cursorWorld.clone())
+        beacon.current.geometry.setPositions([p0.x, p0.y, p0.z, p1.x, p1.y, p1.z])
+        const mat = beacon.current.material as { dashOffset: number }
+        mat.dashOffset = -elapsed * 0.6
+      }
+    }
   })
 
   return (
     <group rotation={[0.26, 0, 0.1]}>
       <group ref={orbit}>
-        <mesh>
+        <mesh
+          onPointerOver={(e) => {
+            e.stopPropagation()
+            setHovered(true)
+          }}
+          onPointerOut={() => setHovered(false)}
+        >
           <boxGeometry args={[0.15, 0.15, 0.2]} />
           <meshStandardMaterial color="#3a4a63" metalness={0.6} roughness={0.4} />
         </mesh>
@@ -141,6 +172,22 @@ function AezaSatellite() {
           </mesh>
         </group>
       </group>
+      {hovered ? (
+        <Line
+          ref={beacon}
+          points={[
+            [0, 0, 0],
+            [0, 0, 0],
+          ]}
+          color="#4a8fb8"
+          lineWidth={1}
+          dashed
+          dashSize={0.12}
+          gapSize={0.07}
+          transparent
+          opacity={0.85}
+        />
+      ) : null}
     </group>
   )
 }

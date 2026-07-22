@@ -24,29 +24,32 @@ const fragmentShader = /* glsl */ `
     vec3 dir = normalize(vDir);
 
     float band = exp(-pow((vUv.y - 0.5) / 0.15, 2.0));
-    float coreLon = exp(-pow((vUv.x - 0.3) / 0.2, 2.0));
-    float coreBias = pow(1.0 - abs(vUv.y - 0.5) / 0.5, 2.0);
+    float coreDist = distance(vUv, vec2(0.3, 0.5));
+    float coreKnot = exp(-pow(coreDist / 0.12, 2.0));
 
     float arms = fbm(dir * 4.0 + uTime * 0.004);
-    float dust = fbm(dir * 8.0 + vec3(19.3, 7.7, 2.1));
-    float dustMask = smoothstep(0.52, 0.74, dust);
+    float L = band * (0.35 + 0.65 * arms);
 
-    float brightness = band * coreBias * (0.35 + 0.65 * arms);
-    brightness *= mix(1.0, 0.28, dustMask);
-    brightness *= 1.0 + 1.5 * coreLon;
+    float starN = fbm(dir * 200.0);
+    float starPin = smoothstep(0.85, 0.9, starN) * band;
+    L += starPin * 4.0;
 
-    vec3 coreCol = vec3(1.0, 0.85, 0.6);
-    vec3 midCol = vec3(0.94, 0.93, 0.9);
-    vec3 outerCol = vec3(0.78, 0.84, 1.0);
-    vec3 col = mix(outerCol, midCol, band);
-    col = mix(col, coreCol, coreLon * band);
+    float dust = fbm(vec3(vUv.x * 8.0, vUv.y * 60.0, 5.0));
+    float dustMask = smoothstep(0.5, 0.75, dust);
+    L *= mix(1.0, 0.5, dustMask);
 
-    float starN = fbm(dir * 42.0);
-    float stars = smoothstep(0.8, 0.84, starN) * band;
+    L *= 1.0 + 2.5 * coreKnot;
 
-    float intensity = brightness * 0.6;
-    vec3 outCol = col * intensity + midCol * stars * 0.9;
-    gl_FragColor = vec4(outCol, clamp(intensity + stars * 0.9, 0.0, 1.0));
+    vec3 coreCol = vec3(1.0, 0.82, 0.55);
+    vec3 midCol = vec3(0.95, 0.88, 0.72);
+    vec3 outerCol = vec3(0.75, 0.82, 1.0);
+    float cd = clamp(coreDist / 0.6, 0.0, 1.0);
+    vec3 col = mix(coreCol, midCol, smoothstep(0.0, 0.5, cd));
+    col = mix(col, outerCol, smoothstep(0.5, 1.0, cd));
+
+    vec3 outCol = col * L + vec3(1.0, 0.96, 0.9) * starPin * 2.0;
+    outCol *= 0.6;
+    gl_FragColor = vec4(outCol, 1.0);
   }
 `
 

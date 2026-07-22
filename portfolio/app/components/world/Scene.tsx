@@ -9,13 +9,22 @@ import { Lighting } from "./Lighting"
 import { CameraRig } from "./CameraRig"
 import { Sun } from "./Sun"
 import { HeroForeground } from "./HeroForeground"
+import { AezaPlanet } from "./planets/AezaPlanet"
 import { PostFX } from "./PostFX"
 
 const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDebug), {
   ssr: false,
 })
 
-export function Scene({ debug = false, bloomParam }: { debug?: boolean; bloomParam?: string }) {
+export function Scene({
+  debug = false,
+  bloomParam,
+  camParam,
+}: {
+  debug?: boolean
+  bloomParam?: string
+  camParam?: string
+}) {
   return (
     <Canvas
       className="!fixed inset-0"
@@ -33,7 +42,8 @@ export function Scene({ debug = false, bloomParam }: { debug?: boolean; bloomPar
         <Lighting />
         <Sun />
         <HeroForeground />
-        <CameraRig />
+        <AezaPlanet />
+        <CameraRig camTarget={camParam} />
         <AmbientClock />
         {debug ? <SplineDebug /> : null}
       </Suspense>

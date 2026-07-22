@@ -14,5 +14,5 @@ export default async function Home({
     return <TextIndex />
   }
 
-  return <JourneyExperience debug={debug === "1"} forceBloom={bloom === "1"} />
+  return <JourneyExperience debug={debug === "1"} bloomParam={bloom} />
 }

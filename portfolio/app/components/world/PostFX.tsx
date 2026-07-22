@@ -3,9 +3,10 @@
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { usePortfolio } from "@/store/portfolio"
 
-export function PostFX({ force = false }: { force?: boolean }) {
+export function PostFX({ bloomParam }: { bloomParam?: string }) {
   const tier = usePortfolio((state) => state.qualityTier)
-  if (tier !== "high" && !force) return null
+  const enabled = bloomParam === "1" ? true : bloomParam === "0" ? false : tier === "high"
+  if (!enabled) return null
 
   return (
     <EffectComposer disableNormalPass>

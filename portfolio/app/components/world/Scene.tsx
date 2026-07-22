@@ -15,13 +15,16 @@ const SplineDebug = dynamic(() => import("./SplineDebug").then((m) => m.SplineDe
   ssr: false,
 })
 
-export function Scene({ debug = false, forceBloom = false }: { debug?: boolean; forceBloom?: boolean }) {
+export function Scene({ debug = false, bloomParam }: { debug?: boolean; bloomParam?: string }) {
   return (
     <Canvas
       className="!fixed inset-0"
       dpr={[1, 1.5]}
       camera={{ fov: 50, near: 0.1, far: 1000, position: [0, 0.5, 3] }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
+      onCreated={({ gl }) => {
+        gl.debug.checkShaderErrors = true
+      }}
       aria-label="Nitin Kumar Pandey's portfolio, a solar system you fly through"
     >
       <color attach="background" args={["#04070E"]} />
@@ -34,7 +37,7 @@ export function Scene({ debug = false, forceBloom = false }: { debug?: boolean; 
         <AmbientClock />
         {debug ? <SplineDebug /> : null}
       </Suspense>
-      <PostFX force={forceBloom} />
+      <PostFX bloomParam={bloomParam} />
     </Canvas>
   )
 }

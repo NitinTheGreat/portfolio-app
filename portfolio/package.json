@@ -24,6 +24,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
+    "satellite.js": "^5.0.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.175.0",
     "xod": "^1.11.3",

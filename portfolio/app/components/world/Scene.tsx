@@ -13,6 +13,7 @@ import { AezaPlanet } from "./planets/AezaPlanet"
 import { IivyPlanet } from "./planets/IivyPlanet"
 import { DonnaPlanet } from "./planets/DonnaPlanet"
 import { DrishtiPlanet } from "./planets/DrishtiPlanet"
+import { ConjunctionTriagePlanet } from "./planets/ConjunctionTriagePlanet"
 import { Constellation } from "./planets/Constellation"
 import { LandingModule } from "./planets/LandingModule"
 import { PostFX } from "./PostFX"
@@ -55,6 +56,7 @@ export function Scene({
         <IivyPlanet />
         <DonnaPlanet />
         <DrishtiPlanet />
+        <ConjunctionTriagePlanet />
         <Constellation forcedHover={hoverParam} />
         <LandingModule />
         <CameraRig camTarget={camParam} tOverride={tParam} />

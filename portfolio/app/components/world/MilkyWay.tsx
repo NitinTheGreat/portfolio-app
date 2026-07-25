@@ -37,7 +37,9 @@ export function MilkyWay() {
   useEffect(() => {
     if (!texture || !material.current) return
     const tween = gsap.to(material.current, { opacity: 1, duration: 0.8, ease: "power2.out" })
-    return () => tween.kill()
+    return () => {
+      tween.kill()
+    }
   }, [texture])
 
   if (!texture) return null

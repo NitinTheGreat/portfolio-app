@@ -19,7 +19,7 @@ export function PostFX({ bloomParam }: { bloomParam?: string }) {
   if (!enabled) return null
 
   return (
-    <EffectComposer disableNormalPass>
+    <EffectComposer enableNormalPass={false}>
       <Bloom
         luminanceThreshold={0.85}
         intensity={1.1}
